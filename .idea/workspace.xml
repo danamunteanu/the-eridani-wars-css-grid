@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="08b3b539-c853-424c-b42b-c13d33a652f9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-    </list>
+    <list default="true" id="08b3b539-c853-424c-b42b-c13d33a652f9" name="Default" comment="" />
     <list id="4b1aca19-254d-4151-bea7-c61c76c2dbde" name="ignore" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -248,12 +245,20 @@
       <workItem from="1520998835248" duration="636000" />
       <workItem from="1521000178781" duration="21000" />
       <workItem from="1521000213508" duration="200000" />
-      <workItem from="1521000601923" duration="378000" />
+      <workItem from="1521000601923" duration="592000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit with readme &amp; license">
+      <created>1521001005396</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1521001005396</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1235000" />
+    <option name="totallyTimeSpent" value="1449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="817" extended-state="0" />
@@ -291,6 +296,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit with readme &amp; license" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit with readme &amp; license" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
