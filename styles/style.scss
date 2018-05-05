@@ -1,9 +1,13 @@
 * {
   box-sizing: border-box;
 }
+.full-width {
+  width: 100%;
+}
 
 html, body {
   min-height: 100%;
+  margin: 0;
 }
 
 html[lang="fa"] #docs,
@@ -14,9 +18,10 @@ a[href="#fa"] {
   font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 
-body {
+.container {
   display: flex;
   min-width: 600px;
+  min-height: 100%;
   margin: 0;
   background-color: #5DA449;
   color: rgba(255, 255, 255, 0.8);
@@ -39,7 +44,6 @@ body {
 h1 {
   margin: 0 0 0.5em;
   text-transform: uppercase;
-  font-family: 'Autour One', cursive;
   font-size: 30px;
 }
 
@@ -187,7 +191,6 @@ pre {
 }
 
 #levelsWrapper {
-  display: none;
   top: 30px;
   right: 20px;
   max-width: 160px;
