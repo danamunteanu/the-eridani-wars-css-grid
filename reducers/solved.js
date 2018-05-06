@@ -7,7 +7,7 @@ export default (state = initState, action) => {
         case SET_SOLVED :
             return {...state, solved: action.payload.solved}
         case RESET_SOLVED : 
-            return {...state, solved: {}}
+            return {...state, solved: []}
     default :
     return state
     }

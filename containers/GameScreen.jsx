@@ -89,16 +89,15 @@ class GameScreen extends Component {
         const after = levelData.after;
         const levelName = levelData.name;
         const answers = this.props.answers;
-    
+        const currentAnswer = answers[levelName] ? answers[levelName]: '';
         this.setState({
             instructions: instructions,
             before: before,
             after: after,
+            codeArea: currentAnswer
         })
 
-        this.setState({
-            codeArea: answers[levelName] ? answers[levelName]: ''
-        })
+        this.onChangeTreatmentStyle(currentAnswer);
         
         this.loadDocs()
 
@@ -212,6 +211,9 @@ class GameScreen extends Component {
             const arrayProp = value.split(';')[0].split(':');
             const style = getStylesForProperty(getPropertyName(arrayProp[0]), arrayProp[1]);
             this.setState({treatmentStyle: style})
+        }
+        else {
+            this.setState({treatmentStyle: {}})
         }
     }
 
