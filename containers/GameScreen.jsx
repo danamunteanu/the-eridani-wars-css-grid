@@ -205,7 +205,7 @@ class GameScreen extends Component {
     }
 
     isKeyValuePair(str) {
-        const regex = new RegExp(/\w+:\s?\w+(?=,?\s?)/g);
+        const regex = new RegExp(/\w+:?-\s?\w+(?=,?\s?)/g);
         if (regex.test(str)) {
             return true;
         }
