@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const LevelCounter = ({ currentLevel, showTooltip, levels, prev, next, goToLevel, showHideLevelsPanel,reset }) => {
+const LevelCounter = ({ currentLevel, showTooltip, levels, prev, next, goToLevel, showHideLevelsPanel,reset, solved }) => {
     const levelsNo = levels.length
     return (<div id="level-counter">
         <button className="arrow left" onClick={prev} disabled={currentLevel < 1}>◀</button>
@@ -15,7 +15,9 @@ const LevelCounter = ({ currentLevel, showTooltip, levels, prev, next, goToLevel
         <button className="arrow right" onClick={next} disabled={currentLevel + 1 >= levelsNo}>▶</button>
         {showTooltip && <div tabIndex="0" id="levelsWrapper" className="tooltip">
             <div id="levels">
-                {levels.map((level,index) => <span key={index} onClick={() =>  goToLevel(index)} className={'level-marker ' + (currentLevel == index ? 'current ' : ' ')}>{index + 1}</span>)}
+                {levels.map((level,index) => <span key={index} onClick={() =>  goToLevel(index)} 
+                className={'level-marker ' + (currentLevel == index ? 'current ' : ' ') + 
+                (solved.indexOf(index) !== -1 ? 'solved' : '')}>{index + 1}</span>)}
             </div>
             <div id="labelReset" className="translate" onClick={reset}> Reset</div>
         </div>}

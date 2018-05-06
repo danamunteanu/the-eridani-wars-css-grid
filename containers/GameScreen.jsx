@@ -188,14 +188,17 @@ class GameScreen extends Component {
         this.goToLevel(0);
         this.props.resetAnswers();
         this.props.resetSolved();
+        this.showHideLevelsPanel(false);
         this.setState({
             level: 0,
             solved: [],
             answers: {
                 answers : {}
-            }
+            },
+            codeArea: ''
         });
       }
+      
     }
 
     isKeyValuePair(str) {
@@ -249,6 +252,7 @@ class GameScreen extends Component {
                             goToLevel={this.goToLevel}
                             showHideLevelsPanel={this.showHideLevelsPanel}
                             reset={this.reset}
+                            solved={solved}
                         />
                         <h1>Grid Garden</h1>
                         <Intructions 
