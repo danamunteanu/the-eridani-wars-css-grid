@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class CodeEditor extends Component {
 
     render() {
-        const { before, after, onChangeTreatmentStyle, nextLevel, onHandleChangeTextarea, codeValue } = this.props;
+        const { before, after, onChangeTreatmentStyle, nextLevel, onHandleChangeTextarea, codeValue, isNextDisabled } = this.props;
         return (
             <div id="editor">
                 <div id="css">
@@ -13,7 +13,7 @@ class CodeEditor extends Component {
                     <textarea id="code" value={codeValue} autoFocus onChange={(e) => {onHandleChangeTextarea(e.target.value);onChangeTreatmentStyle(e.target.value);}}></textarea>
                     <pre id="after">{after}</pre>
                 </div>
-                <button id="next" className="translate" onClick={nextLevel}>Next</button>
+                <button id="next" className={'translate ' + (isNextDisabled === true ? 'disabled' : '')} onClick={nextLevel} disabled={isNextDisabled}>Next</button>
             </div>
         )
     }

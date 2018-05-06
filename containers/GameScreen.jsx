@@ -35,7 +35,8 @@ class GameScreen extends Component {
             isCorrectAnswer: false,
             changed: false,
             showTooltip: false,
-            codeArea: ''
+            codeArea: '',
+            isNextDisabled: true
         };
     }
 
@@ -94,7 +95,8 @@ class GameScreen extends Component {
             instructions: instructions,
             before: before,
             after: after,
-            codeArea: currentAnswer
+            codeArea: currentAnswer,
+            isNextDisabled: true
         })
 
         this.onChangeTreatmentStyle(currentAnswer);
@@ -195,7 +197,8 @@ class GameScreen extends Component {
             answers: {
                 answers : {}
             },
-            codeArea: ''
+            codeArea: '',
+            isNextDisabled: true
         });
       }
       
@@ -214,6 +217,7 @@ class GameScreen extends Component {
             const arrayProp = value.split(';')[0].split(':');
             const style = getStylesForProperty(getPropertyName(arrayProp[0]), arrayProp[1]);
             this.setState({treatmentStyle: style})
+            this.setState({isNextDisabled: false})
         }
         else {
             this.setState({treatmentStyle: {}})
@@ -238,6 +242,7 @@ class GameScreen extends Component {
         const plantTreatmentClass = this.state.plantTreatmentClass
         const plantStyle = this.state.plantStyle
         const treatmentStyle = this.state.treatmentStyle
+        const isNextDisabled = this.state.isNextDisabled
         const textAreaValue = answers[levelName] ? answers[levelName]: '';
         return (
             <div className="container full-width">
@@ -266,6 +271,7 @@ class GameScreen extends Component {
                         onChangeTreatmentStyle={this.onChangeTreatmentStyle}
                         nextLevel={this.nextLevel}
                         onHandleChangeTextarea={this.onHandleChangeTextarea}
+                        isNextDisabled={isNextDisabled}
                     />
                 </section>
                 <section id="view">
