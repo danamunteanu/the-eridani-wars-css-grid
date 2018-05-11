@@ -36,7 +36,8 @@ class GameScreen extends Component {
             changed: false,
             showTooltip: false,
             codeArea: '',
-            isNextDisabled: true
+            isNextDisabled: true,
+            textareaStyle: '22px'
         };
     }
 
@@ -109,6 +110,12 @@ class GameScreen extends Component {
             'w': 'weed'
         };
         const levelStyle = levelData.style;
+        const textareaHeight= Object.keys(levelStyle).length * 20 + 2 + '';
+
+        this.setState({
+            textareaStyle: textareaHeight
+        })
+
         const classes = levelData.classes;
         let plantClass = '';
          if (classes) {
@@ -205,7 +212,7 @@ class GameScreen extends Component {
     }
 
     isKeyValuePair(str) {
-        const regex = new RegExp(/\w+:?-\s?\w+(?=,?\s?)/g);
+        const regex = new RegExp(/\w+:\s?-?\s?\w+(?=,?\s?)/g);
         if (regex.test(str)) {
             return true;
         }
@@ -213,15 +220,18 @@ class GameScreen extends Component {
     }
 
     onChangeTreatmentStyle(value) {
-        if (this.isKeyValuePair(value)) {
-            const arrayProp = value.split(';')[0].split(':');
-            const style = getStylesForProperty(getPropertyName(arrayProp[0]), arrayProp[1]);
-            this.setState({treatmentStyle: style})
-            this.setState({isNextDisabled: false})
+        const valueSplittedByRows = value.split('\n');
+        let tempStyle = {}
+        for (let i=0; i<valueSplittedByRows.length;i++) {
+            if (this.isKeyValuePair(valueSplittedByRows[i])) {
+                const arrayProp = valueSplittedByRows[i].split(';')[0].split(':');
+                const style = getStylesForProperty(getPropertyName(arrayProp[0]), arrayProp[1]);
+                tempStyle = {...tempStyle, ...style}
+                
+            }
         }
-        else {
-            this.setState({treatmentStyle: {}})
-        }
+        this.setState({treatmentStyle: tempStyle})
+        this.setState({isNextDisabled: false})
     }
 
     onHandleChangeTextarea(value) {
@@ -244,6 +254,7 @@ class GameScreen extends Component {
         const treatmentStyle = this.state.treatmentStyle
         const isNextDisabled = this.state.isNextDisabled
         const textAreaValue = answers[levelName] ? answers[levelName]: '';
+        const textareaHeight = this.state.textareaStyle;
         return (
             <div className="container full-width">
                 <section id="sidebar">
@@ -272,6 +283,7 @@ class GameScreen extends Component {
                         nextLevel={this.nextLevel}
                         onHandleChangeTextarea={this.onHandleChangeTextarea}
                         isNextDisabled={isNextDisabled}
+                        textareaHeight={textareaHeight}
                     />
                 </section>
                 <section id="view">
