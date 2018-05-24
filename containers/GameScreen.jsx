@@ -21,7 +21,6 @@ class GameScreen extends Component {
         this.showHideLevelsPanel = this.showHideLevelsPanel.bind(this)
         this.reset = this.reset.bind(this);
         this.saveAnswer = this.saveAnswer.bind(this);
-        this.loadDocs = this.loadDocs.bind(this);
         this.goToLevel = this.goToLevel.bind(this);
         this.onChangeTreatmentStyle = this.onChangeTreatmentStyle.bind(this);
         this.isKeyValuePair = this.isKeyValuePair.bind(this);
@@ -31,6 +30,7 @@ class GameScreen extends Component {
             user: localStorage.user || '',
             level: parseInt(localStorage.level, 10) || 0,
             answers: {},
+            docs: {},
             solved: localStorage.solved || [],
             isCorrectAnswer: false,
             changed: false,
@@ -51,9 +51,9 @@ class GameScreen extends Component {
          
         const levelData = this.props.levels[currentLevel];
         const levelsNo = this.props.levels.length;
+        const docs = this.props.docs;
         this.saveAnswer()
         this.loadLevel(levelData)
-        
     }
 
     prev()  {
@@ -101,8 +101,6 @@ class GameScreen extends Component {
         })
 
         this.onChangeTreatmentStyle(currentAnswer);
-        
-        this.loadDocs()
 
         const string = levelData.board;
         const colors = {
@@ -170,12 +168,6 @@ class GameScreen extends Component {
       
     }
 
-    loadDocs() {
-       // debugger
-       // const codeAreas = this.refs.code;
-       // console.log('codeAreas',codeAreas)
-    }
-
     showHideLevelsPanel(show) {
         if (show) {
             this.setState({
@@ -241,7 +233,7 @@ class GameScreen extends Component {
     }
 
     render() {
-        const { levels, solved, answers } = this.props
+        const { levels, solved, answers, docs } = this.props
         const levelsNo = levels.length
         const currentLevel = parseInt(this.props.level)
         const levelName = levels[currentLevel].name
@@ -258,7 +250,7 @@ class GameScreen extends Component {
         return (
             <div className="container full-width">
                 <section id="sidebar">
-                    <div>
+                    <div className="level-intructions-container">
                         <LevelCounter
                             currentLevel={currentLevel}
                             showTooltip={showTooltip}
@@ -273,6 +265,7 @@ class GameScreen extends Component {
                         <h1>Grid Garden</h1>
                         <Intructions 
                             instructions={instructions}
+                            docs={docs}
                         />
                     </div>
                     <CodeEditor 
