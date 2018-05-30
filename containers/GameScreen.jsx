@@ -37,7 +37,8 @@ class GameScreen extends Component {
             showTooltip: false,
             codeArea: '',
             isNextDisabled: true,
-            textareaStyle: '22px'
+            textareaStyle: '22px',
+            plantTreatmentClass: []
         };
     }
 
@@ -102,7 +103,6 @@ class GameScreen extends Component {
 
         this.onChangeTreatmentStyle(currentAnswer);
 
-        const string = levelData.board;
         const colors = {
             'c': 'carrot',
             'w': 'weed'
@@ -114,23 +114,59 @@ class GameScreen extends Component {
             textareaStyle: textareaHeight
         })
 
-        const classes = levelData.classes;
-        let plantClass = '';
-         if (classes) {
-             for (let rule in classes) {
-                plantClass += classes[rule];
-         }
-        }
+        const string = levelData.board;
+        
+        let plantTreatmentClassArr = [];
+
         for (let i = 0; i < string.length; i++) {
             const c = string.charAt(i);
-            const color = colors[c];
+            let color = colors[c];
+            plantTreatmentClassArr = [...plantTreatmentClassArr, color];
+        }
 
-            this.setState({
-                plantTreatmentClass : color + ' ' + plantClass,
-                plantStyle: levelStyle
+        this.setState({
+            plantTreatmentClass : plantTreatmentClassArr
+        }, () => {
+            this.applyClassesAndStyles(levelData);
+        })
+    }
+
+    applyClassesAndStyles(levelData) {
+        const classes = levelData.classes;
+        let plantClass = '';
+        let attrs = [];
+        const currentClasses = classes ? {'#overlay, #garden, #plants': '', ...classes} : {'#plants, #garden, #garden > *, #plants > *': ''}
+        Object.keys(currentClasses).forEach(function(currentClass) {
+            const classSelectors = currentClass.split(', ');
+            classSelectors.forEach(classSelector => {
+                const matches = document.querySelectorAll(classSelector);
+                matches.forEach(match => {
+                    const matchClassNameArray = match.className.split(' ').slice(0,2);
+                    matchClassNameArray.push(currentClasses[currentClass]);
+                    match.className = matchClassNameArray.join(' ');
+                })
+            })
+        });
+        
+        const selector = levelData.selector;
+        const levelStyle = levelData.style;
+        if (levelStyle) {
+            const all = document.querySelectorAll('#plants, #plants > *')
+
+            all.forEach(elem => {
+                elem.style.cssText = '';
+            })
+            
+            const selectorMatches = document.querySelectorAll('#plants ' + (selector || ''));
+            
+            selectorMatches.forEach(match => {
+                if (levelStyle) {
+                    Object.keys(levelStyle).forEach(function(key) {
+                        match.style.cssText += key + ': ' + levelStyle[key] + '; ';
+                    });
+                }
             })
         }
-        
     }
 
     saveAnswer() {
@@ -219,7 +255,6 @@ class GameScreen extends Component {
                 const arrayProp = valueSplittedByRows[i].split(';')[0].split(':');
                 const style = getStylesForProperty(getPropertyName(arrayProp[0]), arrayProp[1]);
                 tempStyle = {...tempStyle, ...style}
-                
             }
         }
         this.setState({treatmentStyle: tempStyle})

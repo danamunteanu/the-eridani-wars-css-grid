@@ -1,28 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const DemoArea = ({ plantTreatmentClass, plantStyle, treatmentStyle }) => {
+const DemoArea = ({ plantTreatmentClass, plantStyle, treatmentStyle}) => {
     const noOfRepeats = 30;
+    const plantTreatmentClassLength = plantTreatmentClass.length
     return (
         <div id="board">
             <div id="overlay">
-                {Array.apply(null, { length: noOfRepeats }).map((e, i) => (
-                    <span className="plot" key={i}></span>
+                {Array.apply(null, { length: noOfRepeats }).map((elem, index) => (
+                    <span className="plot" key={index}></span>
                 ))}
             </div>
             <div id="plants">
-                <div className={'plant ' + plantTreatmentClass} style={plantStyle}>
-                    <div className="bg"></div>
-                </div>
+                {Array.apply(null, { length: plantTreatmentClassLength }).map((elem, index) => (
+                    <div className={'plant ' + plantTreatmentClass[index]} style={plantStyle} key={index}>
+                        <div className="bg"></div>
+                    </div>
+                 ))}
             </div>
             <div id="garden">
-                <div className={'treatment ' + plantTreatmentClass} style={treatmentStyle} >
-                    <div className="bg"></div>
-                </div>
+                {Array.apply(null, { length: plantTreatmentClassLength }).map((elem, index) => (
+                    <div className={'treatment ' + plantTreatmentClass[index]} style={treatmentStyle} key={index} >
+                        <div className="bg"></div>
+                    </div>
+                ))}
             </div>
             <div id="soil">
-                {Array.apply(null, { length: noOfRepeats }).map((e, i) => (
-                    <span className="plot" key={i}></span>
+                {Array.apply(null, { length: noOfRepeats }).map((elem, index) => (
+                    <span className="plot" key={index}></span>
                 ))}
             </div>
         </div>
@@ -32,7 +37,9 @@ const DemoArea = ({ plantTreatmentClass, plantStyle, treatmentStyle }) => {
 export default DemoArea;
 
 DemoArea.propTypes = {
-    plantTreatmentClass: PropTypes.string,
+    plantTreatmentClass: PropTypes.array,
     plantStyle: PropTypes.object,
-    treatmentStyle: PropTypes.object
+    treatmentStyle: PropTypes.object,
+    carrotNo: PropTypes.number,
+    weedNo: PropTypes.number
 };

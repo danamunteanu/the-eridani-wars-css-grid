@@ -4,7 +4,7 @@ export const levels = [
     instructions: '<p>Welcome to Grid Garden, where you write CSS code to grow your carrot garden! Water only the areas that have carrots by using the <code class="help">grid-column-start</code> property.</p><p>For example, <code>grid-column-start: 3;</code> will water the area starting at the 3rd vertical grid line, which is another way of saying the 3rd vertical border from the left in the grid.<img src="http://code.org/api/hour/begin_codepip_grid.png"></p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'gridColumnStart': '3'},
+    style: {'grid-column-start': '3'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "}"
   },
@@ -13,7 +13,7 @@ export const levels = [
     instructions: '<p>Uh oh, looks like weeds are growing in the corner of your garden. Use <code class="help">grid-column-start</code> to poison them. Note that the weeds start at the 5th vertical grid line.</p>',
     board: 'w',
     selector: '> :nth-child(1)',
-    style: {'gridColumnStart': '5'},
+    style: {'grid-column-start': '5'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#poison {\n",
     after: "}"
   },
@@ -23,7 +23,7 @@ export const levels = [
     board: 'c',
     classes: {'#garden > *, #plants > *': 'grid-column-start-1'},
     selector: '> :nth-child(1)',
-    style: {'gridColumnEnd': '4'},
+    style: {'grid-column-end': '4'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-column-start: 1;\n",
     after: "}"
   },
@@ -33,7 +33,7 @@ export const levels = [
     board: 'c',
     classes: {'#garden > *, #plants > *': 'grid-column-start-5'},
     selector: '> :nth-child(1)',
-    style: {'gridColumnEnd': '2'},
+    style: {'grid-column-end': '2'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-column-start: 5;\n",
     after: "}"
   },
@@ -43,7 +43,7 @@ export const levels = [
     board: 'c',
     classes: {'#garden > *, #plants > *': 'grid-column-start-1'},
     selector: '> :nth-child(1)',
-    style: {'gridColumnEnd': '-2'},
+    style: {'grid-column-end': '-2'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-column-start: 1;\n",
     after: "}"
   },
@@ -52,7 +52,7 @@ export const levels = [
     instructions: '<p>Now try setting <code class="help">grid-column-start</code> to a negative value.</p>',
     board: 'w',
     selector: '> :nth-child(1)',
-    style: {'gridColumnStart': '-3'},
+    style: {'grid-column-start': '-3'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#poison {\n",
     after: "}"
   },
@@ -62,7 +62,7 @@ export const levels = [
     board: 'c',
     classes: {'#garden > *, #plants > *': 'grid-column-start-2'},
     selector: '> :nth-child(1)',
-    style: {'gridColumnEnd': 'span 2'},
+    style: {'grid-column-end': 'span 2'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-column-start: 2;\n",
     after: "}"
   },
@@ -72,7 +72,7 @@ export const levels = [
     board: 'c',
     classes: {'#garden > *, #plants > *': 'grid-column-start-1'},
     selector: '> :nth-child(1)',
-    style: {'gridColumnEnd': 'span 5'},
+    style: {'grid-column-end': 'span 5'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-column-start: 1;\n",
     after: "}"
   },
@@ -82,7 +82,7 @@ export const levels = [
     board: 'c',
     classes: {'#garden > *, #plants > *': 'grid-column-end-6'},
     selector: '> :nth-child(1)',
-    style: {'gridColumnStart': 'span 3'},
+    style: {'grid-column-start': 'span 3'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "  grid-column-end: 6;\n}"
   },
@@ -91,7 +91,7 @@ export const levels = [
     instructions: '<p>Typing both <code class="help">grid-column-start</code> and <code class="help">grid-column-end</code> every time can get tiring. Fortunately, <code class="help">grid-column</code> is a shorthand property that can accept both values at once, separated by a slash.</p><p>For example, <code>grid-column: 2 / 4;</code> will set the grid item to start on the 2nd vertical grid line and end on the 4th grid line.</p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'gridColumn': '4 / 6'},
+    style: {'grid-column': '4 / 6'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "}"
   },
@@ -100,7 +100,7 @@ export const levels = [
     instructions: '<p>Try using <code class="help">grid-column</code> to water these carrots. The <code>span</code> keyword also works with this shorthand property so give it a try!</p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'gridColumn': '2 / 5'},
+    style: {'grid-column': '2 / 5'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "}"
   },
@@ -109,7 +109,7 @@ export const levels = [
     instructions: '<p>One of the things that sets CSS grids apart from flexbox is that you can easily position items in two dimensions: columns and rows. <code class="help">grid-row-start</code> works much like <code class="help">grid-column-start</code> except along the vertical axis.</p><p>Use <code class="help">grid-row-start</code> to water these carrots.</p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'gridRowStart': '3'},
+    style: {'grid-row-start': '3'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "}"
   },
@@ -118,7 +118,7 @@ export const levels = [
     instructions: '<p>Now give the shorthand property <code class="help">grid-row</code> a try.</p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'gridRow': '3 / 6'},
+    style: {'grid-row': '3 / 6'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "}"
   },
@@ -127,7 +127,7 @@ export const levels = [
     instructions: '<p>Use <code class="help">grid-column</code> and <code class="help">grid-row</code> at the same time to set position in both dimensions.</p>',
     board: 'w',
     selector: '> :nth-child(1)',
-    style: {'gridColumn': '2', 'gridRow': '5'},
+    style: {'grid-column': '2', 'grid-row': '5'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#poison {\n",
     after: "}"
   },
@@ -136,7 +136,7 @@ export const levels = [
     instructions: '<p>You can also use <code class="help">grid-column</code> and <code class="help">grid-row</code> together to span larger areas within the grid. Give it a try!</p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'gridColumn': '2 / 6', 'gridRow': '1 / 6'},
+    style: {'grid-column': '2 / 6', 'grid-row': '1 / 6'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "}"
   },
@@ -145,7 +145,7 @@ export const levels = [
     instructions: '<p>If typing out both <code class="help">grid-column</code> and <code class="help">grid-row</code> is too much for you, there\'s yet another shorthand for that. <code class="help">grid-area</code> accepts four values separated by slashes: <code class="help">grid-row-start</code>, <code class="help">grid-column-start</code>, <code class="help">grid-row-end</code>, followed by <code class="help">grid-column-end</code>.</p><p>One example of this would be <code>grid-area: 1 / 1 / 3 / 6;</code>.</p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'gridArea': '1 / 2 / 4 / 6'},
+    style: {'grid-area': '1 / 2 / 4 / 6'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n",
     after: "}"
   },
@@ -155,7 +155,7 @@ export const levels = [
     board: 'cc',
     classes: {'#garden > :nth-child(2), #plants > :nth-child(2)': 'grid-column-4'},
     selector: '> :nth-child(1)',
-    style: {'gridArea': '2 / 3 / 5 / 6'},
+    style: {'grid-area': '2 / 3 / 5 / 6'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water-1 {\n  grid-area: 1 / 4 / 6 / 5;\n}\n\n#water-2 {\n",
     after: "}"
   },
@@ -181,7 +181,7 @@ export const levels = [
     name: 'grid-template-columns 1',
     instructions: '<p>Up to this point, you\'ve had your garden set up as a grid with five columns, each 20% of the full width, and five rows, each 20% of the full height.</p><p>This was done with the rules <code>grid-template-columns: 20% 20% 20% 20% 20%;</code> and <code>grid-template-rows: 20% 20% 20% 20% 20%;</code> Each rule has five values which create five columns, each set to 20% of the overall width of the garden.</p><p>But you can set the grid up however you like. Give <code class="help">grid-template-columns</code> a new value to water your carrots. You\'ll want to set the width of the 1st column to be 50%.',
     board: 'c',
-    style: {'gridTemplateColumns': '50% 50%'},
+    style: {'grid-template-columns': '50% 50%'},
     before: "#garden {\n  display: grid;\n",
     after: "  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-column: 1;\n  grid-row: 1;\n}"
   },
@@ -190,7 +190,7 @@ export const levels = [
     instructions: '<p>Specifying a bunch of columns with identical widths can get tedious. Luckily there\'s a <code class="help">repeat</code> function to help with that.</p><p>For example, we previously defined five 20% columns with the rule <code>grid-template-columns: 20% 20% 20% 20% 20%;</code>. This can be simplified as <code>grid-template-columns: repeat(5, 20%);</code></p><p>Using <code class="help">grid-template-columns</code> with the <code>repeat</code> function, create eight columns each with 12.5% width. This way you won\'t overwater your garden.</p>',
     board: 'c',
     classes: {'#plants': 'grid-template-columns-repeat-8-12'},
-    style: {'gridTemplateColumns': 'repeat(8, 12.5%)'},
+    style: {'grid-template-columns': 'repeat(8, 12.5%)'},
     before: "#garden {\n  display: grid;\n",
     after: "  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-column: 1;\n  grid-row: 1;\n}"
   },
@@ -199,7 +199,7 @@ export const levels = [
     instructions: '<p><code class="help">grid-template-columns</code> doesn\'t just accept values in percentages, but also length units like pixels and ems. You can even mix different units together.</p><p>Here, set three columns to <code>100px</code>, <code>3em</code>, and <code>40%</code> respectively.</p>',
     board: 'cwc',
     classes: {'#plants': 'grid-template-columns-100px-3em-40p'},
-    style: {'gridTemplateColumns': '100px 3em 40%'},
+    style: {'grid-template-columns': '100px 3em 40%'},
     before: "#garden {\n  display: grid;\n",
     after: "  grid-template-rows: 20% 20% 20% 20% 20%;\n}"
   },
@@ -208,7 +208,7 @@ export const levels = [
     instructions: '<p>Grid also introduces a new unit, the fractional <code>fr</code>. Each <code>fr</code> unit allocates one share of the available space. For example, if two elements are set to <code>1fr</code> and <code>3fr</code> respectively, the space is divided into 4 equal shares; the first element occupies 1/4 and the second element 3/4 of any leftover space.</p><p>Here, weeds make up the left 1/6 of your first row and carrots the remaining 5/6. Create two columns with these widths using <code>fr</code> units.</p>',
     board: 'wc',
     classes: {'#plants': 'grid-template-columns-1fr-5fr'},
-    style: {'gridTemplateColumns': '1fr 5fr'},
+    style: {'grid-template-columns': '1fr 5fr'},
     before: "#garden {\n  display: grid;\n",
     after: "  grid-template-rows: 20% 20% 20% 20% 20%;\n}"
   },
@@ -221,7 +221,7 @@ export const levels = [
       '#plants > :nth-child(1), #garden > :nth-child(1)': 'grid-area-1-1-6-2',
       '#plants > :nth-child(2), #garden > :nth-child(2)': 'grid-area-1-5-6-6'
     },
-    style: {'gridTemplateColumns': '50px 1fr 1fr 1fr 50px'},
+    style: {'grid-template-columns': '50px 1fr 1fr 1fr 50px'},
     before: "#garden {\n  display: grid;\n",
     after: "  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n  grid-area: 1 / 1 / 6 / 2;\n}\n\n#poison {\n  grid-area: 1 / 5 / 6 / 6;\n}"
   },
@@ -230,7 +230,7 @@ export const levels = [
     instructions: '<p>Now there is a 75 pixel column of weeds on the left side of your garden. 3/5 of the remaining space is growing carrots, while 2/5 has been overrun with weeds.</p><p>Use <code class="help">grid-template-columns</code> with a combination of <code>px</code> and <code>fr</code> units to make the necessary columns.</p>',
     board: 'wcw',
     classes: {'#plants': 'grid-template-columns-6', '#garden, #overlay': 'grid-template-rows-100p'},
-    style: {'gridTemplateColumns': '75px 3fr 2fr'},
+    style: {'grid-template-columns': '75px 3fr 2fr'},
     before: "#garden {\n  display: grid;\n",
     after: "  grid-template-rows: 100%;\n}"
   },
@@ -242,7 +242,7 @@ export const levels = [
       '#plants': 'grid-template-rows-50px-0-0-0-1fr',
       '#plants > :nth-child(1), #garden > :nth-child(1)': 'grid-area-5-1-6-6'
     },
-    style: {'gridTemplateRows': '1fr 100px'},
+    style: {'grid-template-rows': '1fr 100px'},
     before: "#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n",
     after: "}\n\n#water {\n  grid-column: 1 / 6;\n  grid-row: 5 / 6;\n}"
   },
@@ -250,7 +250,7 @@ export const levels = [
     name: 'grid-template 1',
     instructions: '<p><code class="help">grid-template</code> is a shorthand property that combines <code class="help">grid-template-rows</code> and <code class="help">grid-template-columns</code>.</p><p>For example, <code>grid-template: 50% 50% / 200px;</code> will create a grid with two rows that are 50% each, and one column that is 200 pixels wide.</p><p>Try using <code class="help">grid-template</code> to water an area that includes the top 60% and left 200 pixels of your garden.</p>',
     board: 'c',
-    style: {'gridTemplate': '60% 1fr / 200px 1fr'},
+    style: {'grid-template': '60% 1fr / 200px 1fr'},
     before: "#garden {\n  display: grid;\n",
     after: "}\n\n#water {\n  grid-column: 1;\n  grid-row: 1;\n}"
   },
@@ -259,7 +259,7 @@ export const levels = [
     instructions: '<p>Your garden is looking great. Here you\'ve left a 50 pixel path at the bottom of your garden and filled the rest with carrots.</p><p>Unfortunately, the left 20% of your carrots have been overrun with weeds. Use CSS grid one last time to treat your garden.</p>',
     board: 'wc',
     classes: {'#plants': 'grid-template-2'},
-    style: {'gridTemplate': '1fr 50px / 20% 1fr'},
+    style: {'grid-template': '1fr 50px / 20% 1fr'},
     before: "#garden {\n  display: grid;\n",
     after: "}"
   }
