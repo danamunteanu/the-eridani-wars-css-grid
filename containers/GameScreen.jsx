@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { warningReset, wrongAnswerWarning, completeAllLevelsWarning } from '../const/levels.js'
+import { warningReset, wrongAnswerWarning, completeAllLevelsWarning, levelWin } from '../const/levels.js'
 import { setAnswers, resetAnswers } from '../actions/answers'
 import { setLevel } from '../actions/level'
 import { setSolved, resetSolved } from '../actions/solved'
@@ -37,7 +37,8 @@ class GameScreen extends Component {
             showTooltip: false,
             codeArea: '',
             textareaStyle: '22px',
-            plantTreatmentClass: []
+            plantTreatmentClass: [],
+            isVisibleCodeEditor: true
         };
     }
 
@@ -96,8 +97,14 @@ class GameScreen extends Component {
             instructions: instructions,
             before: before,
             after: after,
-            codeArea: currentAnswer
+            codeArea: currentAnswer,
+            isVisibleCodeEditor: true
         })
+        if (levelData.name === 'win') {
+            this.setState({
+                isVisibleCodeEditor: false
+            })
+        }
 
         this.onChangeTreatmentStyle(currentAnswer);
 
@@ -126,6 +133,7 @@ class GameScreen extends Component {
             plantTreatmentClass : plantTreatmentClassArr
         }, () => {
             this.applyClassesAndStyles(levelData);
+            this.onChangeTreatmentStyle(currentAnswer);
         })
     }
 
@@ -183,7 +191,6 @@ class GameScreen extends Component {
     }
 
     checkIfAllAnswersAreOk() {
-        debugger
        if (this.props.solved && this.props.solved.length >= this.props.levels.length - 1) {
             return true;
        }
@@ -191,7 +198,8 @@ class GameScreen extends Component {
     }
 
     win() {
-        alert('You win!!');
+        this.saveAnswer();
+        this.loadLevel(levelWin);
     }
 
     checkAnswer() {
@@ -209,8 +217,7 @@ class GameScreen extends Component {
                 updated.push(currentLevel);
                 this.props.setSolved(updated);
             }
-            debugger
-            if (this.checkIfAllAnswersAreOk()) {
+            if (currentLevel === this.props.levels.length - 1 && this.checkIfAllAnswersAreOk()) {
                 this.win();
             }
             else if (currentLevel === this.props.levels.length - 1){
@@ -315,28 +322,31 @@ class GameScreen extends Component {
         const plantStyle = this.state.plantStyle
         const textAreaValue = answers[levelName] ? answers[levelName]: '';
         const textareaHeight = this.state.textareaStyle;
+        const isVisibleCodeEditor = this.state.isVisibleCodeEditor;
         return (
             <div className="container full-width">
                 <section id="sidebar">
                     <div className="level-intructions-container">
-                        <LevelCounter
-                            currentLevel={currentLevel}
-                            showTooltip={showTooltip}
-                            levels={levels}
-                            prev={this.prev}
-                            next={this.next}
-                            goToLevel={this.goToLevel}
-                            showHideLevelsPanel={this.showHideLevelsPanel}
-                            reset={this.reset}
-                            solved={solved}
-                        />
+                        {isVisibleCodeEditor && <LevelCounter
+                                currentLevel={currentLevel}
+                                showTooltip={showTooltip}
+                                levels={levels}
+                                prev={this.prev}
+                                next={this.next}
+                                goToLevel={this.goToLevel}
+                                showHideLevelsPanel={this.showHideLevelsPanel}
+                                reset={this.reset}
+                                solved={solved}
+                        /> }
+                        {!isVisibleCodeEditor && 
+                        <button id='back-to-the-game' onClick={() => this.loadLevel(levels[levelsNo-1])}>Back to the game</button>}
                         <h1>Grid Garden</h1>
                         <Intructions 
                             instructions={instructions}
                             docs={docs}
                         />
                     </div>
-                    <CodeEditor 
+                    {isVisibleCodeEditor && <CodeEditor 
                         before={before}
                         after={after}
                         codeValue={this.state.codeArea}
@@ -344,7 +354,7 @@ class GameScreen extends Component {
                         nextLevel={this.nextLevel}
                         onHandleChangeTextarea={this.onHandleChangeTextarea}
                         textareaHeight={textareaHeight}
-                    />
+                    />}
                 </section>
                 <section id="view">
                     <DemoArea
