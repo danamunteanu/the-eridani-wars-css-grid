@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { warningReset } from '../const/levels.js'
+import { warningReset, wrongAnswerWarning } from '../const/levels.js'
 import { setAnswers, resetAnswers } from '../actions/answers'
 import { setLevel } from '../actions/level'
 import { setSolved, resetSolved } from '../actions/solved'
@@ -36,7 +36,6 @@ class GameScreen extends Component {
             changed: false,
             showTooltip: false,
             codeArea: '',
-            isNextDisabled: true,
             textareaStyle: '22px',
             plantTreatmentClass: []
         };
@@ -97,8 +96,7 @@ class GameScreen extends Component {
             instructions: instructions,
             before: before,
             after: after,
-            codeArea: currentAnswer,
-            isNextDisabled: true
+            codeArea: currentAnswer
         })
 
         this.onChangeTreatmentStyle(currentAnswer);
@@ -201,6 +199,9 @@ class GameScreen extends Component {
             }
             this.next();
         }
+        if (correct === false) {
+            alert(wrongAnswerWarning);
+        }
       
     }
 
@@ -232,8 +233,7 @@ class GameScreen extends Component {
             answers: {
                 answers : {}
             },
-            codeArea: '',
-            isNextDisabled: true
+            codeArea: ''
         });
       }
       
@@ -258,7 +258,6 @@ class GameScreen extends Component {
             }
         }
         this.setState({treatmentStyle: tempStyle})
-        this.setState({isNextDisabled: false})
     }
 
     onHandleChangeTextarea(value) {
@@ -279,7 +278,6 @@ class GameScreen extends Component {
         const plantTreatmentClass = this.state.plantTreatmentClass
         const plantStyle = this.state.plantStyle
         const treatmentStyle = this.state.treatmentStyle
-        const isNextDisabled = this.state.isNextDisabled
         const textAreaValue = answers[levelName] ? answers[levelName]: '';
         const textareaHeight = this.state.textareaStyle;
         return (
@@ -310,7 +308,6 @@ class GameScreen extends Component {
                         onChangeTreatmentStyle={this.onChangeTreatmentStyle}
                         nextLevel={this.nextLevel}
                         onHandleChangeTextarea={this.onHandleChangeTextarea}
-                        isNextDisabled={isNextDisabled}
                         textareaHeight={textareaHeight}
                     />
                 </section>

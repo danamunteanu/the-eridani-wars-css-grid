@@ -276,4 +276,5 @@ export const levelWin = {
 };
 
 export const warningReset = 'Are you sure you want to reset the game?\n\nYour saved progress will be lost and you\'ll be sent to the start of the game.'
-  
+
+export const wrongAnswerWarning = 'Ooops ! Wrong answer! Try again!'
