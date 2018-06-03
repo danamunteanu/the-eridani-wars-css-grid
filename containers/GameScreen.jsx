@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { warningReset, wrongAnswerWarning } from '../const/levels.js'
+import { warningReset, wrongAnswerWarning, completeAllLevelsWarning } from '../const/levels.js'
 import { setAnswers, resetAnswers } from '../actions/answers'
 import { setLevel } from '../actions/level'
 import { setSolved, resetSolved } from '../actions/solved'
@@ -182,6 +182,18 @@ class GameScreen extends Component {
         this.checkAnswer();
     }
 
+    checkIfAllAnswersAreOk() {
+        debugger
+       if (this.props.solved && this.props.solved.length >= this.props.levels.length - 1) {
+            return true;
+       }
+       return false
+    }
+
+    win() {
+        alert('You win!!');
+    }
+
     checkAnswer() {
         let correct = false;
         const currentLevel = this.props.level;
@@ -197,7 +209,16 @@ class GameScreen extends Component {
                 updated.push(currentLevel);
                 this.props.setSolved(updated);
             }
-            this.next();
+            debugger
+            if (this.checkIfAllAnswersAreOk()) {
+                this.win();
+            }
+            else if (currentLevel === this.props.levels.length - 1){
+                alert(completeAllLevelsWarning);
+            }
+            else {
+                this.next();
+            }
         }
         if (correct === false) {
             alert(wrongAnswerWarning);
@@ -249,15 +270,30 @@ class GameScreen extends Component {
 
     onChangeTreatmentStyle(value) {
         const valueSplittedByRows = value.split('\n');
-        let tempStyle = {}
+        let style = ''
         for (let i=0; i<valueSplittedByRows.length;i++) {
             if (this.isKeyValuePair(valueSplittedByRows[i])) {
                 const arrayProp = valueSplittedByRows[i].split(';')[0].split(':');
-                const style = getStylesForProperty(getPropertyName(arrayProp[0]), arrayProp[1]);
-                tempStyle = {...tempStyle, ...style}
+                style += arrayProp[0] + ': ' + arrayProp[1] + '; ';
             }
         }
-        this.setState({treatmentStyle: tempStyle})
+
+
+        const currentLevel = this.props.level;
+        const levelData = this.props.levels[currentLevel];
+        const selector = levelData.selector;
+
+        const all = document.querySelectorAll('#garden, #garden > *')
+            all.forEach(elem => {
+                elem.style.cssText = '';
+        })
+        
+        if (style) {
+            const selectorMatches = document.querySelectorAll('#garden ' + (selector || ''));
+            selectorMatches.forEach(match => {
+                match.style.cssText += style
+            })
+        }
     }
 
     onHandleChangeTextarea(value) {
@@ -277,7 +313,6 @@ class GameScreen extends Component {
         const showTooltip = this.state.showTooltip
         const plantTreatmentClass = this.state.plantTreatmentClass
         const plantStyle = this.state.plantStyle
-        const treatmentStyle = this.state.treatmentStyle
         const textAreaValue = answers[levelName] ? answers[levelName]: '';
         const textareaHeight = this.state.textareaStyle;
         return (
@@ -315,7 +350,6 @@ class GameScreen extends Component {
                     <DemoArea
                         plantTreatmentClass={plantTreatmentClass}
                         plantStyle={plantStyle}
-                        treatmentStyle={treatmentStyle}
                     />
                     
             </section>

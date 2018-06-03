@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const DemoArea = ({ plantTreatmentClass, plantStyle, treatmentStyle}) => {
+const DemoArea = ({ plantTreatmentClass, plantStyle}) => {
     const noOfRepeats = 30;
     const plantTreatmentClassLength = plantTreatmentClass.length
     return (
@@ -20,7 +20,7 @@ const DemoArea = ({ plantTreatmentClass, plantStyle, treatmentStyle}) => {
             </div>
             <div id="garden">
                 {Array.apply(null, { length: plantTreatmentClassLength }).map((elem, index) => (
-                    <div className={'treatment ' + plantTreatmentClass[index]} style={treatmentStyle} key={index} >
+                    <div className={'treatment ' + plantTreatmentClass[index]} key={index} >
                         <div className="bg"></div>
                     </div>
                 ))}
@@ -39,7 +39,6 @@ export default DemoArea;
 DemoArea.propTypes = {
     plantTreatmentClass: PropTypes.array,
     plantStyle: PropTypes.object,
-    treatmentStyle: PropTypes.object,
     carrotNo: PropTypes.number,
     weedNo: PropTypes.number
 };
