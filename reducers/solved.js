@@ -9,6 +9,6 @@ export default (state = initState, action) => {
         case RESET_SOLVED : 
             return {...state, solved: []}
     default :
-    return state
+        return state
     }
 }

@@ -6,20 +6,20 @@ class Instructions extends Component {
     constructor (props) {
         super(props);
         this.instructionsText = null;
+        this.loadDocs = this.loadDocs.bind(this);
+        this.handleHover = this.handleHover.bind(this);
+        this.handleLeaveHover = this.handleLeaveHover.bind(this);
+        this.state={
+            tooltipClassName: '',
+            tooltipStyle: {},
+            tooltipContent: ''
+        }
         this.setInstructionsTextRef = element => {
             this.instructionsText = element;
         };
         this.setTooltipRef = element => {
             this.tooltipRef = element;
         };
-        this.loadDocs = this.loadDocs.bind(this);
-        this.handleHover = this.handleHover.bind(this);
-        this.handleLeaveHover = this.handleLeaveHover.bind(this);
-        this.state={
-            tooltipClassName: "",
-            tooltipStyle: {},
-            tooltipContent: ""
-        }
     }
 
 
@@ -30,18 +30,6 @@ class Instructions extends Component {
 
     componentWillUnmount() { 
         this.instructionsText.removeEventListener('DOMSubtreeModified');
-    }
-
-    render() {
-        const { instructions } = this.props;
-        const { tooltipClassName, tooltipStyle, tooltipContent } = this.state;
-        return (
-            <div>
-                <p id="instructions"  dangerouslySetInnerHTML={{__html: instructions}}
-                ref={this.setInstructionsTextRef}></p>
-                <div id="tooltip" className={tooltipClassName} style={tooltipStyle} dangerouslySetInnerHTML={{__html:tooltipContent}} ref={this.setTooltipRef}></div>
-            </div>
-        )
     }
 
     loadDocs() {
@@ -63,7 +51,7 @@ class Instructions extends Component {
             left: helpPosition.left
         };
         this.setState({
-            tooltipClassName : "tooltip",
+            tooltipClassName : 'tooltip',
             tooltipStyle: tooltipStyle,
             tooltipContent: helpContent
         })
@@ -71,10 +59,21 @@ class Instructions extends Component {
 
     handleLeaveHover() {
         this.setState({
-            tooltipClassName: "",
+            tooltipClassName: '',
             tooltipStyle: {},
-            tooltipContent: ""
+            tooltipContent: ''
         })
+    }
+
+    render() {
+        const { instructions } = this.props;
+        const { tooltipClassName, tooltipStyle, tooltipContent } = this.state;
+        return (
+            <div>
+                <p id="instructions"  dangerouslySetInnerHTML={{__html: instructions}} ref={this.setInstructionsTextRef}></p>
+                <div id="tooltip" className={tooltipClassName} style={tooltipStyle} dangerouslySetInnerHTML={{__html:tooltipContent}} ref={this.setTooltipRef}></div>
+            </div>
+        )
     }
 
 }

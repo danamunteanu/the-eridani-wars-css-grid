@@ -7,6 +7,6 @@ export default (state = initState, action) => {
         case SET_LEVEL :
             return {...state, level: action.payload.level}
     default :
-    return state
+        return state
     }
 }

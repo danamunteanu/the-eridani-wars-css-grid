@@ -13,30 +13,27 @@ import DemoArea from '../components/DemoArea.jsx';
 
 class GameScreen extends Component {
     constructor (props) {
-        super(props)
-        this.nextLevel = this.nextLevel.bind(this)
-        this.prev = this.prev.bind(this)
-        this.next = this.next.bind(this)
-        this.loadLevel = this.loadLevel.bind(this)
-        this.showHideLevelsPanel = this.showHideLevelsPanel.bind(this)
+        super(props);
+        this.prev = this.prev.bind(this);
+        this.next = this.next.bind(this);
+        this.loadLevel = this.loadLevel.bind(this);
+        this.showHideLevelsPanel = this.showHideLevelsPanel.bind(this);
         this.reset = this.reset.bind(this);
         this.saveAnswer = this.saveAnswer.bind(this);
         this.goToLevel = this.goToLevel.bind(this);
-        this.onChangeTreatmentStyle = this.onChangeTreatmentStyle.bind(this);
+        this.applyTreatmentStyle = this.applyTreatmentStyle.bind(this);
         this.isKeyValuePair = this.isKeyValuePair.bind(this);
-        this.checkAnswer = this.checkAnswer.bind(this);
-        this.onHandleChangeTextarea = this.onHandleChangeTextarea.bind(this);
+        this.nextLevel = this.nextLevel.bind(this);
+        this.onHandleChangeCodeArea = this.onHandleChangeCodeArea.bind(this);
         this.state = {
             user: localStorage.user || '',
             level: parseInt(localStorage.level, 10) || 0,
             answers: {},
             docs: {},
             solved: localStorage.solved || [],
-            isCorrectAnswer: false,
-            changed: false,
             showTooltip: false,
             codeArea: '',
-            textareaStyle: '22px',
+            textareaHeight: '22px',
             plantTreatmentClass: [],
             isVisibleCodeEditor: true
         };
@@ -44,12 +41,10 @@ class GameScreen extends Component {
 
     componentDidMount() {
         const currentLevel = parseInt(this.props.level, 10) || 0
-
         if (!localStorage.user) {
             const userValue = '' + (new Date()).getTime() + Math.random().toString(36).slice(1);
             localStorage.setItem('user', userValue);
         }
-         
         const levelData = this.props.levels[currentLevel];
         const levelsNo = this.props.levels.length;
         const docs = this.props.docs;
@@ -64,7 +59,6 @@ class GameScreen extends Component {
         this.props.setLevel(currentLevel)
         const levelData = this.props.levels[currentLevel];
         this.loadLevel(levelData)
-        
     }
 
     next() {
@@ -79,116 +73,98 @@ class GameScreen extends Component {
 
     goToLevel(level) { 
         this.saveAnswer();
-        let currentLevel = level;
+        const currentLevel = level;
         this.props.setLevel(currentLevel);
         const levelData = this.props.levels[currentLevel];
         this.loadLevel(levelData);
-
     }
 
     loadLevel (levelData) {
-        const instructions = levelData.instructions;
-        const before = levelData.before;
-        const after = levelData.after;
-        const levelName = levelData.name;
-        const answers = this.props.answers;
-        const currentAnswer = answers[levelName] ? answers[levelName]: '';
-        this.setState({
-            instructions: instructions,
-            before: before,
-            after: after,
-            codeArea: currentAnswer,
-            isVisibleCodeEditor: true
-        })
-        if (levelData.name === 'win') {
-            this.setState({
-                isVisibleCodeEditor: false
-            })
-        }
-
-        this.onChangeTreatmentStyle(currentAnswer);
-
+        const { instructions, before, after, levelName, board } = levelData;
+        const { answers } = this.props;
         const colors = {
             'c': 'carrot',
             'w': 'weed'
         };
         const levelStyle = levelData.style;
-        const textareaHeight= Object.keys(levelStyle).length * 20 + 2 + '';
-
+        const height = Object.keys(levelStyle).length * 20 + 2 + '';
+        const currentAnswer = answers[levelName] || '';
         this.setState({
-            textareaStyle: textareaHeight
-        })
+            instructions: instructions,
+            before: before,
+            after: after,
+            codeArea: currentAnswer,
+            textareaHeight: height
+        });
+        if (levelData.name === 'win') {
+            this.setState({
+                isVisibleCodeEditor: false
+            })
+        }
+        else {
+            this.setState({
+                isVisibleCodeEditor: true
+            })
+        }
 
-        const string = levelData.board;
-        
         let plantTreatmentClassArr = [];
-
-        for (let i = 0; i < string.length; i++) {
-            const c = string.charAt(i);
-            let color = colors[c];
+        let color = '';
+        for (let i = 0; i < board.length; i++) {
+            color = colors[board.charAt(i)];
             plantTreatmentClassArr = [...plantTreatmentClassArr, color];
         }
 
         this.setState({
             plantTreatmentClass : plantTreatmentClassArr
         }, () => {
-            this.applyClassesAndStyles(levelData);
-            this.onChangeTreatmentStyle(currentAnswer);
+            this.applyInitialClassesAndStyles(levelData);
+            this.applyTreatmentStyle(currentAnswer);
         })
     }
 
-    applyClassesAndStyles(levelData) {
-        const classes = levelData.classes;
-        let plantClass = '';
-        let attrs = [];
-        const currentClasses = classes ? {'#overlay, #garden, #plants': '', ...classes} : {'#plants, #garden, #garden > *, #plants > *': ''}
-        Object.keys(currentClasses).forEach(function(currentClass) {
-            const classSelectors = currentClass.split(', ');
-            classSelectors.forEach(classSelector => {
-                const matches = document.querySelectorAll(classSelector);
-                matches.forEach(match => {
-                    const matchClassNameArray = match.className.split(' ').slice(0,2);
-                    matchClassNameArray.push(currentClasses[currentClass]);
-                    match.className = matchClassNameArray.join(' ');
+    applyInitialClassesAndStyles(levelData) {
+        const initialClasses = levelData.classes;
+
+        const initialAndResetClasses = initialClasses ? {'#overlay, #garden, #plants': '', ...initialClasses} : {'#overlay, #plants, #garden, #garden > *, #plants > *': ''}
+        Object.keys(initialAndResetClasses).forEach(function(initialOrResetClass) {
+            const initialOrResetClassSelectors = initialOrResetClass.split(', ');
+            initialOrResetClassSelectors.forEach(initialOrResetClassSelector => {
+                const elementsByClassMatches = document.querySelectorAll(initialOrResetClassSelectors);
+                elementsByClassMatches.forEach(match => {
+                    const defaultClassNames = match.className.split(' ').slice(0,2);
+                    defaultClassNames.push(initialAndResetClasses[initialOrResetClass]);
+                    match.className = defaultClassNames.join(' ');
                 })
             })
         });
         
-        const selector = levelData.selector;
-        const levelStyle = levelData.style;
-        if (levelStyle) {
-            const all = document.querySelectorAll('#plants, #plants > *')
+        const initialSelector = levelData.selector;
+        const initialStyle = levelData.style;
+        if (initialStyle) {
+            const initialElementsBySelectorsForStyle = document.querySelectorAll('#plants, #plants > *')
+            initialElementsBySelectorsForStyle.forEach(element => {
+                element.style.cssText = '';
+            });
 
-            all.forEach(elem => {
-                elem.style.cssText = '';
-            })
-            
-            const selectorMatches = document.querySelectorAll('#plants ' + (selector || ''));
-            
-            selectorMatches.forEach(match => {
-                if (levelStyle) {
-                    Object.keys(levelStyle).forEach(function(key) {
-                        match.style.cssText += key + ': ' + levelStyle[key] + '; ';
-                    });
-                }
+            const elementsBySelectorsForStyleMatches = document.querySelectorAll('#plants ' + (initialSelector || ''));
+            elementsBySelectorsForStyleMatches.forEach(match => {
+                Object.keys(initialStyle).forEach(function(key) {
+                    match.style.cssText += key + ': ' + initialStyle[key] + '; ';
+                });
             })
         }
     }
 
     saveAnswer() {
-        const level = this.props.levels[this.props.level]; 
-        const codeArea = this.state.codeArea; 
-        const levelName = level.name
+        const currentLevel = this.props.levels[this.props.level]; 
+        const currentLevelName = currentLevel.name;
+        const { codeArea } = this.state;
         const answers = {
                 ...this.props.answers,
-                [levelName]: this.state.codeArea ? this.state.codeArea  : ''
+                [currentLevelName]: codeArea ||  ''
             }
         this.props.setAnswers(answers)
       }
-
-    nextLevel () {
-        this.checkAnswer();
-    }
 
     checkIfAllAnswersAreOk() {
        if (this.props.solved && this.props.solved.length >= this.props.levels.length - 1) {
@@ -202,20 +178,18 @@ class GameScreen extends Component {
         this.loadLevel(levelWin);
     }
 
-    checkAnswer() {
-        let correct = false;
+    nextLevel() {
         const currentLevel = this.props.level;
         const plantDOM = ReactDOM.findDOMNode(this).getElementsByClassName('plant')[0];
         const treatmentDOM = ReactDOM.findDOMNode(this).getElementsByClassName('treatment')[0];
         const plantPosition = plantDOM.getBoundingClientRect();
         const treatmentPosition = treatmentDOM.getBoundingClientRect();
-        if (plantPosition.top === treatmentPosition.top && plantPosition.left === treatmentPosition.left 
-        && plantPosition.bottom === treatmentPosition.bottom && plantPosition.right === treatmentPosition.right) {
-            correct = true;
-            let updated = this.props.solved.slice();
-            if (updated.indexOf(currentLevel) === -1) {
-                updated.push(currentLevel);
-                this.props.setSolved(updated);
+        if (plantPosition.top === treatmentPosition.top && plantPosition.left === treatmentPosition.left &&
+            plantPosition.bottom === treatmentPosition.bottom && plantPosition.right === treatmentPosition.right) {
+            let solvedUpdated = this.props.solved.slice();
+            if (solvedUpdated.indexOf(currentLevel) === -1) {
+                solvedUpdated.push(currentLevel);
+                this.props.setSolved(solvedUpdated);
             }
             if (currentLevel === this.props.levels.length - 1 && this.checkIfAllAnswersAreOk()) {
                 this.win();
@@ -227,10 +201,9 @@ class GameScreen extends Component {
                 this.next();
             }
         }
-        if (correct === false) {
+        else {
             alert(wrongAnswerWarning);
-        }
-      
+        }      
     }
 
     showHideLevelsPanel(show) {
@@ -240,16 +213,15 @@ class GameScreen extends Component {
             });
         }
         else {
-            let isVisible = !this.state.showTooltip
+            let isVisibleTooltip = !this.state.showTooltip
             this.setState({
-                showTooltip: isVisible
+                showTooltip: isVisibleTooltip
             });
         }
     }
 
     reset() {
       var r = confirm(warningReset);
-
       if (r) {
         this.goToLevel(0);
         this.props.resetAnswers();
@@ -275,35 +247,35 @@ class GameScreen extends Component {
         return false;
     }
 
-    onChangeTreatmentStyle(value) {
+    applyTreatmentStyle(value) {
         const valueSplittedByRows = value.split('\n');
         let style = ''
         for (let i=0; i<valueSplittedByRows.length;i++) {
             if (this.isKeyValuePair(valueSplittedByRows[i])) {
-                const arrayProp = valueSplittedByRows[i].split(';')[0].split(':');
-                style += arrayProp[0] + ': ' + arrayProp[1] + '; ';
+                const keyAndValue = valueSplittedByRows[i].split(';')[0].split(':');
+                style += keyAndValue[0] + ': ' + keyAndValue[1] + '; ';
             }
         }
 
 
         const currentLevel = this.props.level;
         const levelData = this.props.levels[currentLevel];
-        const selector = levelData.selector;
+        const initialSelector = levelData.selector;
 
-        const all = document.querySelectorAll('#garden, #garden > *')
-            all.forEach(elem => {
-                elem.style.cssText = '';
+        const initialElementsBySelectorsForTreatmentStyle = document.querySelectorAll('#garden, #garden > *')
+        initialElementsBySelectorsForTreatmentStyle.forEach(element => {
+                element.style.cssText = '';
         })
         
         if (style) {
-            const selectorMatches = document.querySelectorAll('#garden ' + (selector || ''));
-            selectorMatches.forEach(match => {
+            const elementsBySelectorsForTreatmentStyleMatches = document.querySelectorAll('#garden ' + (initialSelector || ''));
+            elementsBySelectorsForTreatmentStyleMatches.forEach(match => {
                 match.style.cssText += style
             })
         }
     }
 
-    onHandleChangeTextarea(value) {
+    onHandleChangeCodeArea(value) {
         this.setState({
             codeArea: value
         })
@@ -313,16 +285,9 @@ class GameScreen extends Component {
         const { levels, solved, answers, docs } = this.props
         const levelsNo = levels.length
         const currentLevel = parseInt(this.props.level)
-        const levelName = levels[currentLevel].name
-        const instructions = this.state.instructions
-        const before = this.state.before
-        const after = this.state.after
-        const showTooltip = this.state.showTooltip
-        const plantTreatmentClass = this.state.plantTreatmentClass
-        const plantStyle = this.state.plantStyle
-        const textAreaValue = answers[levelName] ? answers[levelName]: '';
-        const textareaHeight = this.state.textareaStyle;
-        const isVisibleCodeEditor = this.state.isVisibleCodeEditor;
+        const currentLevelName = levels[currentLevel].name
+        const { instructions, before, after, showTooltip, plantTreatmentClass, plantStyle, textareaHeight, isVisibleCodeEditor } = this.state;
+
         return (
             <div className="container full-width">
                 <section id="sidebar">
@@ -350,9 +315,9 @@ class GameScreen extends Component {
                         before={before}
                         after={after}
                         codeValue={this.state.codeArea}
-                        onChangeTreatmentStyle={this.onChangeTreatmentStyle}
+                        applyTreatmentStyle={this.applyTreatmentStyle}
                         nextLevel={this.nextLevel}
-                        onHandleChangeTextarea={this.onHandleChangeTextarea}
+                        onHandleChangeCodeArea={this.onHandleChangeCodeArea}
                         textareaHeight={textareaHeight}
                     />}
                 </section>
