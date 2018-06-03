@@ -46,9 +46,7 @@ class GameScreen extends Component {
             localStorage.setItem('user', userValue);
         }
         const levelData = this.props.levels[currentLevel];
-        const levelsNo = this.props.levels.length;
-        const docs = this.props.docs;
-        this.saveAnswer()
+        this.saveAnswer();
         this.loadLevel(levelData)
     }
 
@@ -56,7 +54,7 @@ class GameScreen extends Component {
         this.saveAnswer();
         let currentLevel = this.props.level;
         currentLevel --;
-        this.props.setLevel(currentLevel)
+        this.props.setLevel(currentLevel);
         const levelData = this.props.levels[currentLevel];
         this.loadLevel(levelData)
     }
@@ -65,7 +63,7 @@ class GameScreen extends Component {
         this.saveAnswer();
         let currentLevel = this.props.level;
         currentLevel ++;
-        this.props.setLevel(currentLevel)
+        this.props.setLevel(currentLevel);
         const levelData = this.props.levels[currentLevel];
         this.loadLevel(levelData)
         
@@ -80,8 +78,9 @@ class GameScreen extends Component {
     }
 
     loadLevel (levelData) {
-        const { instructions, before, after, levelName, board } = levelData;
+        const { instructions, before, after, board } = levelData;
         const { answers } = this.props;
+        const levelName = levelData.name;
         const colors = {
             'c': 'carrot',
             'w': 'weed'
@@ -129,7 +128,7 @@ class GameScreen extends Component {
         Object.keys(initialAndResetClasses).forEach(function(initialOrResetClass) {
             const initialOrResetClassSelectors = initialOrResetClass.split(', ');
             initialOrResetClassSelectors.forEach(initialOrResetClassSelector => {
-                const elementsByClassMatches = document.querySelectorAll(initialOrResetClassSelectors);
+                const elementsByClassMatches = document.querySelectorAll(initialOrResetClassSelector);
                 elementsByClassMatches.forEach(match => {
                     const defaultClassNames = match.className.split(' ').slice(0,2);
                     defaultClassNames.push(initialAndResetClasses[initialOrResetClass]);
@@ -141,7 +140,7 @@ class GameScreen extends Component {
         const initialSelector = levelData.selector;
         const initialStyle = levelData.style;
         if (initialStyle) {
-            const initialElementsBySelectorsForStyle = document.querySelectorAll('#plants, #plants > *')
+            const initialElementsBySelectorsForStyle = document.querySelectorAll('#plants, #plants > *');
             initialElementsBySelectorsForStyle.forEach(element => {
                 element.style.cssText = '';
             });
@@ -221,7 +220,7 @@ class GameScreen extends Component {
     }
 
     reset() {
-      var r = confirm(warningReset);
+      const r = confirm(warningReset);
       if (r) {
         this.goToLevel(0);
         this.props.resetAnswers();
@@ -249,7 +248,7 @@ class GameScreen extends Component {
 
     applyTreatmentStyle(value) {
         const valueSplittedByRows = value.split('\n');
-        let style = ''
+        let style = '';
         for (let i=0; i<valueSplittedByRows.length;i++) {
             if (this.isKeyValuePair(valueSplittedByRows[i])) {
                 const keyAndValue = valueSplittedByRows[i].split(';')[0].split(':');
@@ -262,7 +261,7 @@ class GameScreen extends Component {
         const levelData = this.props.levels[currentLevel];
         const initialSelector = levelData.selector;
 
-        const initialElementsBySelectorsForTreatmentStyle = document.querySelectorAll('#garden, #garden > *')
+        const initialElementsBySelectorsForTreatmentStyle = document.querySelectorAll('#garden, #garden > *');
         initialElementsBySelectorsForTreatmentStyle.forEach(element => {
                 element.style.cssText = '';
         })
@@ -282,10 +281,9 @@ class GameScreen extends Component {
     }
 
     render() {
-        const { levels, solved, answers, docs } = this.props
-        const levelsNo = levels.length
-        const currentLevel = parseInt(this.props.level)
-        const currentLevelName = levels[currentLevel].name
+        const { levels, solved, docs } = this.props;
+        const levelsNo = levels.length;
+        const currentLevel = parseInt(this.props.level);
         const { instructions, before, after, showTooltip, plantTreatmentClass, plantStyle, textareaHeight, isVisibleCodeEditor } = this.state;
 
         return (
