@@ -43,7 +43,6 @@
     "no-unused-vars": 1,
     "object-shorthand": [1, "always"],
     "one-var": 1,
-    "padded-blocks": 1,
     "prefer-const": 1,
     "prefer-template": 1,
     "quotes": [1, "single", "avoid-escape"],
