@@ -32,9 +32,12 @@ class Instructions extends Component {
   }
 
   loadDocs () {
-    const { docs } = this.props, helpDOM = this.instructionsText.getElementsByClassName('help')
+    const { docs } = this.props
+    const helpDOM = this.instructionsText.getElementsByClassName('help')
     for (let i=0;i<helpDOM.length;i++) {
-      const textContent = helpDOM[i].textContent, helpContent = docs[textContent], helpPosition = helpDOM[i].getBoundingClientRect()
+      const textContent = helpDOM[i].textContent
+      const helpContent = docs[textContent]
+      const helpPosition = helpDOM[i].getBoundingClientRect()
       helpDOM[i].addEventListener('mouseover', () => this.handleHover(helpContent,helpPosition))
       helpDOM[i].addEventListener('mouseleave', () => this.handleLeaveHover())
     }
@@ -61,7 +64,8 @@ class Instructions extends Component {
   }
 
   render () {
-    const { instructions } = this.props, { tooltipClassName, tooltipStyle, tooltipContent } = this.state
+    const { instructions } = this.props
+    const { tooltipClassName, tooltipStyle, tooltipContent } = this.state
     return (
       <div>
         <p id='instructions' dangerouslySetInnerHTML={{__html: instructions}} ref={this.setInstructionsTextRef}></p>

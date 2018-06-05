@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const DemoArea = ({ plantTreatmentClass, plantStyle}) => {
-  const noOfRepeatsPlot = 30, plantTreatmentClassNo = plantTreatmentClass.length
+  const noOfRepeatsPlot = 30
+  const plantTreatmentClassNo = plantTreatmentClass.length
   return (
     <div id='board'>
       <div id='overlay'>

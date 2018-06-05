@@ -2,10 +2,6 @@
     "rules": {
         "linebreak-style": 0,
     "semi": [2, "never"],
-    "arrow-body-style": [
-      1,
-      "as-needed"
-    ],
     "arrow-parens": 0,
     "block-spacing": 1,
     "camelcase": 0,
@@ -42,7 +38,6 @@
     "no-underscore-dangle": 0,
     "no-unused-vars": 1,
     "object-shorthand": [1, "always"],
-    "one-var": 1,
     "prefer-const": 1,
     "prefer-template": 1,
     "quotes": [1, "single", "avoid-escape"],
@@ -145,7 +140,11 @@
         "babel"
     ],
     "parserOptions": {
-        "sourceType": "module"
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "extends": ["eslint:recommended", "plugin:react/recommended"]
 }

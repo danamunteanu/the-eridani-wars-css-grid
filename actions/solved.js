@@ -1,13 +1,13 @@
-import { SET_SOLVED, RESET_SOLVED } from '../types/solved';
+import { SET_SOLVED, RESET_SOLVED } from '../types/solved'
 export const setSolved = (solved) => {
-    return dispatch => {
-      dispatch({
-         type: SET_SOLVED,
-         payload: {
-          solved
-         }
-      })
-    }
+  return dispatch => {
+    dispatch({
+      type: SET_SOLVED,
+      payload: {
+        solved
+      }
+    })
+  }
 }
 
 export const resetSolved = () => {

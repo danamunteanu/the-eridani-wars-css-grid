@@ -1,7 +1,7 @@
 {
   "name": "grid-garden-react",
   "version": "1.0.0",
-  "description": "",
+  "description": "Let's learn CSS Grid by playing a pretty game!",
   "main": "index.js",
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --config ./webpack/webpack.dev.config.js --mode development",
