@@ -340,9 +340,9 @@ const mapDispatchToProps = dispatch => (
 export default connect(mapStateToProps, mapDispatchToProps)((GameScreen))
 
 GameScreen.propTypes = {
-  answers: PropTypes.array,
+  answers: PropTypes.object,
   docs: PropTypes.object,
-  level: PropTypes.string,
+  level: PropTypes.number,
   levelWin: PropTypes.object,
   levels: PropTypes.array,
   resetAnswers: PropTypes.func,
