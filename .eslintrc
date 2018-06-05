@@ -39,7 +39,6 @@
     "no-unused-vars": 1,
     "object-shorthand": [1, "always"],
     "prefer-const": 1,
-    "prefer-template": 1,
     "quotes": [1, "single", "avoid-escape"],
     "require-jsdoc": [
       0, {
