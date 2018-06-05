@@ -13,14 +13,14 @@ const DemoArea = ({ plantTreatmentClass, plantStyle}) => {
       </div>
       <div id='plants'>
         {Array.apply(null, { length: plantTreatmentClassNo }).map((elem, index) => (
-          <div className={`plant ${plantTreatmentClass[index]}`} style={plantStyle} key={index}>
+          <div className={'plant ' + plantTreatmentClass[index]} style={plantStyle} key={index}>
             <div className='bg'></div>
           </div>
         ))}
       </div>
       <div id='garden'>
         {Array.apply(null, { length: plantTreatmentClassNo }).map((elem, index) => (
-          <div className={`treatment ${plantTreatmentClass[index]}`} key={index} >
+          <div className={'treatment '+ plantTreatmentClass[index]} key={index} >
             <div className='bg'></div>
           </div>
         ))}
