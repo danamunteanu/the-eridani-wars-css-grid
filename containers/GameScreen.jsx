@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { warningReset, wrongAnswerWarning, completeAllLevelsWarning } from '../const/levels.js'
@@ -121,14 +122,21 @@ class GameScreen extends Component {
   applyInitialClassesAndStyles (levelData) {
     const initialClasses = levelData.classes
     const initialAndResetClasses = initialClasses ? {'#overlay, #garden, #plants': '', ...initialClasses} : {'#overlay, #plants, #garden, #garden > *, #plants > *': ''}
+    let defaultClassNames
     Object.keys(initialAndResetClasses).forEach(function (initialOrResetClass) {
       const initialOrResetClassSelectors = initialOrResetClass.split(', ')
       initialOrResetClassSelectors.forEach(initialOrResetClassSelector => {
         const elementsByClassMatches = document.querySelectorAll(initialOrResetClassSelector)
         elementsByClassMatches.forEach(match => {
-          const defaultClassNames = match.className.split(' ').slice(0,2)
+          const matchClassNames = match.className.split(' ')
+          if (initialOrResetClassSelector === '#plants' ||initialOrResetClassSelector === '#overlay' || initialOrResetClassSelector === '#garden') {
+            defaultClassNames = []
+          }
+          else {
+            defaultClassNames = matchClassNames.slice(0,2)
+          }
           defaultClassNames.push(initialAndResetClasses[initialOrResetClass])
-          match.className = defaultClassNames.join(' ')
+          match.className = defaultClassNames.filter(defaultClassName => defaultClassName != '').join(' ')
         })
       })
     })
@@ -175,26 +183,29 @@ class GameScreen extends Component {
 
   nextLevel () {
     const currentLevel = this.props.level
-    const plantDOM = this.node.getElementsByClassName('plant')[0]
-    const treatmentDOM = this.node.getElementsByClassName('treatment')[0]
-    const plantPosition = plantDOM.getBoundingClientRect()
-    const treatmentPosition = treatmentDOM.getBoundingClientRect()
-    if (plantPosition.top === treatmentPosition.top && plantPosition.left === treatmentPosition.left &&
-        plantPosition.bottom === treatmentPosition.bottom && plantPosition.right === treatmentPosition.right) {
-      const solvedUpdated = this.props.solved.slice()
-      if (solvedUpdated.indexOf(currentLevel) === -1) {
-        solvedUpdated.push(currentLevel)
-        this.props.setSolved(solvedUpdated)
+    const plantDOMs = ReactDOM.findDOMNode(this).getElementsByClassName('plant')
+    const treatmentDOMs = ReactDOM.findDOMNode(this).getElementsByClassName('treatment')
+    for (let i=0; i<plantDOMs.length;i++) {
+      const plantDOM = plantDOMs[i]
+      const treatmentDOM = treatmentDOMs[i]
+      const plantPosition = plantDOM.getBoundingClientRect()
+      const treatmentPosition = treatmentDOM.getBoundingClientRect()
+      if (!(Math.round(plantPosition.top) === Math.round(treatmentPosition.top) && Math.round(plantPosition.left) === Math.round(treatmentPosition.left) && Math.round(plantPosition.bottom) === Math.round(treatmentPosition.bottom) && Math.round(plantPosition.right) === Math.round(treatmentPosition.right))) {
+        alert(wrongAnswerWarning)
+        return
       }
-      if (currentLevel === this.props.levels.length - 1 && this.checkIfAllAnswersAreOk()) {
-        this.win()
-      } else if (currentLevel === this.props.levels.length - 1) {
-        alert(completeAllLevelsWarning)
-      } else {
-        this.next()
-      }
+    }
+    const solvedUpdated = this.props.solved.slice()
+    if (solvedUpdated.indexOf(currentLevel) === -1) {
+      solvedUpdated.push(currentLevel)
+      this.props.setSolved(solvedUpdated)
+    }
+    if (currentLevel === this.props.levels.length - 1 && this.checkIfAllAnswersAreOk()) {
+      this.win()
+    } else if (currentLevel === this.props.levels.length - 1) {
+      alert(completeAllLevelsWarning)
     } else {
-      alert(wrongAnswerWarning)
+      this.next()
     }
   }
 
