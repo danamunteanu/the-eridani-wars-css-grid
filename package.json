@@ -2,10 +2,12 @@
   "name": "grid-garden-react",
   "version": "1.0.0",
   "description": "Let's learn CSS Grid by playing a pretty game!",
-  "main": "index.js",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --config ./webpack/webpack.dev.config.js --mode development",
-    "lint": "eslint **/*.jsx eslint **/*.js"
+    "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --mode development",
+    "lint": "eslint **/*.jsx eslint **/*.js",
+    "build": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --mode development",
+    "build-js": "react-scripts build",
+    "build-css": "node-sass-chokidar src/styles/ -o src/styles/"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
     "redux": "^3.7.2",
     "redux-persist": "^5.9.1",
     "redux-thunk": "^2.2.0",

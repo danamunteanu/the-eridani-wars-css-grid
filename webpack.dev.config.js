@@ -1,12 +1,19 @@
 const webpack = require('webpack');
 const path = require('path');
-const parentDir = path.join(__dirname, '../');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-	entry: [
-		path.join(parentDir,'index.js')
-	],
+	entry: __dirname + "/src/index.js",
+	output: {
+		path: __dirname + "/public",
+		filename: 'assets/bundle.js',
+		chunkFilename: '[name].js'
+	},
+	devServer: {
+		contentBase: __dirname + "/public/",
+		inline: true,
+		historyApiFallback: true
+	},
 	module: {
 		rules: [{
 			test: /\.(js|jsx)$/,
@@ -30,15 +37,7 @@ module.exports = {
 				]
 			}
 		]
-    },
-    output: {
-        path: parentDir + '/dist',
-        filename: 'bundle.js'
-    },
-    devServer: {
-        contentBase: parentDir,
-        historyApiFallback: true
-	},
+  },
 	plugins: [
 		new MiniCssExtractPlugin()
 	],
