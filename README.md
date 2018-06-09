@@ -1,1 +1,1 @@
-# Eridani Wars CSS Grid
+# The Eridani Wars CSS Grid
