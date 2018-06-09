@@ -2,75 +2,27 @@
   "name": "grid-garden-react",
   "version": "1.0.0",
   "description": "Let's learn CSS Grid by playing a pretty game!",
-  "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --mode development",
-    "lint": "eslint **/*.jsx eslint **/*.js",
-    "build": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --mode development",
-    "build-js": "react-scripts build",
-    "build-css": "node-sass-chokidar src/styles/ -o src/styles/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "(https://github.com/danamunteanu/grid-garden-react.git)"
-  },
-  "author": "Dana Munteanu",
-  "license": "ISC",
+  "private": true,
   "dependencies": {
-    "css-to-react-native": "^2.1.2",
-    "hoek": "^5.0.3",
-    "modernizr": "^3.6.0",
-    "npm": "^6.1.0",
+    "node-sass-chokidar": "^1.3.0",
+    "npm-run-all": "^4.1.3",
     "prop-types": "^15.6.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
     "redux": "^3.7.2",
     "redux-persist": "^5.9.1",
-    "redux-thunk": "^2.2.0",
-    "save": "^2.3.2",
-    "thunk": "0.0.1",
-    "webpack-dev-server": "^3.1.1"
+    "redux-thunk": "^2.2.0"
   },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "css-loader": "^0.28.10",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-babel": "^5.1.0",
-    "eslint-plugin-flowtype": "^2.49.3",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.9.1",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.0.6",
-    "less": "^3.0.1",
-    "less-loader": "^4.1.0",
-    "mini-css-extract-plugin": "^0.2.0",
-    "node-sass": "^4.7.2",
-    "postcss-loader": "^2.1.1",
-    "sass-loader": "^6.0.7",
-    "style-loader": "^0.20.3",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-0"
-    ],
-    "plugins": [
-      "transform-object-rest-spread"
-    ]
+  "scripts": {
+    "start": "npm-run-all -p watch-css start-js",
+    "start-js": "react-scripts start",
+    "build": "npm-run-all build-css build-js",
+    "build-js": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "build-css": "node-sass-chokidar src/styles/ -o src/styles/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/styles/ -o src/styles/ --watch --recursive"
   }
 }

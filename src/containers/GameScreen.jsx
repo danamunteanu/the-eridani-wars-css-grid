@@ -136,7 +136,7 @@ class GameScreen extends Component {
             defaultClassNames = matchClassNames.slice(0,2)
           }
           defaultClassNames.push(initialAndResetClasses[initialOrResetClass])
-          match.className = defaultClassNames.filter(defaultClassName => defaultClassName != '').join(' ')
+          match.className = defaultClassNames.filter(defaultClassName => defaultClassName !== '').join(' ')
         })
       })
     })
@@ -223,7 +223,7 @@ class GameScreen extends Component {
   }
 
   reset () {
-    const r = confirm(warningReset)
+    const r = window.confirm(warningReset)
     if (r) {
       this.goToLevel(0)
       this.props.resetAnswers()
@@ -283,7 +283,7 @@ class GameScreen extends Component {
   render () {
     const { levels, solved, docs } = this.props
     const levelsNo = levels.length
-    const currentLevel = parseInt(this.props.level)
+    const currentLevel = parseInt(this.props.level, 10)
     const { instructions, before, after, showTooltip, plantTreatmentClass, plantStyle, textareaHeight, isVisibleCodeEditor } = this.state
 
     return (

@@ -1,1 +1,1 @@
-# grid-garden-react
+# Eridani Wars CSS Grid

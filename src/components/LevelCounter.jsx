@@ -19,7 +19,7 @@ const LevelCounter = ({ currentLevel, showTooltip, levels, prev, next, goToLevel
           {levels.map((level,index) =>
             <span
               key={index} onClick={() => goToLevel(index)}
-              className={'level-marker ' + (currentLevel == index ? 'current ' : ' ') + (solved.indexOf(index) !== -1 ? 'solved' : '')}
+              className={'level-marker ' + (currentLevel === index ? 'current ' : ' ') + (solved.indexOf(index) !== -1 ? 'solved' : '')}
             >{index + 1}</span>)
           }
         </div>
