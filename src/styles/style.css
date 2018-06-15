@@ -362,7 +362,7 @@ button:not(.disabled):hover {
   height: 100%;
   background-color: #6F532A;
   background-color: #836B32;
-  background-image: url("images/dirt.svg");
+  background-image: url("../images/dirt.svg");
   background-size: calc(10vw - 4px); }
 
 #overlay .plot {
@@ -392,25 +392,25 @@ button:not(.disabled):hover {
   border-width: 3px 5px 5px 3px; }
 
 .plant.carrot .bg {
-  background-image: url("images/carrots.svg"); }
+  background-image: url("../images/carrots.svg"); }
 
 .plant.weed .bg {
-  background-image: url("images/weeds.svg"); }
+  background-image: url("../images/weeds.svg"); }
 
 .plant.carrot.correct .bg {
-  background-image: url("images/carrots-correct.svg"); }
+  background-image: url("../images/carrots-correct.svg"); }
 
 .plant.weed.correct .bg {
-  background-image: url("images/weeds-correct.svg"); }
+  background-image: url("../images/weeds-correct.svg"); }
 
 .treatment.carrot .bg {
   background-color: #518cb3;
-  background-image: url("images/water.svg");
+  background-image: url("../images/water.svg");
   animation: scroll 6s linear infinite; }
 
 .treatment.weed .bg {
   background-color: #63393E;
-  background-image: url("images/poison.svg");
+  background-image: url("../images/poison.svg");
   animation: scroll 6s linear infinite; }
 
 #overlay.win:before {
@@ -421,7 +421,7 @@ button:not(.disabled):hover {
   left: 41%;
   width: 8%;
   height: 8%;
-  background-image: url("images/froggy.svg");
+  background-image: url("../images/froggy.svg");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -435,7 +435,7 @@ button:not(.disabled):hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("images/carrots-win.png");
+  background-image: url("../images/carrots-win.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
