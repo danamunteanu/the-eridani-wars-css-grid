@@ -85,7 +85,7 @@ class GameScreen extends Component {
       'w': 'weed'
     }
     const levelStyle = levelData.style
-    const height = Object.keys(levelStyle).length * 20 + 2 + ''
+    const height = Object.keys(levelStyle).length * 20 + 2 + 'px'
     const currentAnswer = answers[levelName] || ''
     this.setState({
       instructions,
@@ -225,7 +225,6 @@ class GameScreen extends Component {
   reset () {
     const r = window.confirm(warningReset)
     if (r) {
-      this.goToLevel(0)
       this.props.resetAnswers()
       this.props.resetSolved()
       this.showHideLevelsPanel(false)
@@ -236,6 +235,8 @@ class GameScreen extends Component {
           answers : {}
         },
         codeArea: ''
+      }, () => {
+        this.goToLevel(0);
       })
     }
   }
@@ -284,7 +285,7 @@ class GameScreen extends Component {
     const { levels, solved, docs } = this.props
     const levelsNo = levels.length
     const currentLevel = parseInt(this.props.level, 10)
-    const { instructions, before, after, showTooltip, plantTreatmentClass, plantStyle, textareaHeight, isVisibleCodeEditor } = this.state
+    const { instructions, before, after, showTooltip, plantTreatmentClass, textareaHeight, isVisibleCodeEditor } = this.state
 
     return (
       <div className='container full-width'>
@@ -324,7 +325,6 @@ class GameScreen extends Component {
         <section id='view'>
           <DemoArea
             plantTreatmentClass={plantTreatmentClass}
-            plantStyle={plantStyle}
           />
         </section>
       </div>
