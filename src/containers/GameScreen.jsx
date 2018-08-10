@@ -10,6 +10,7 @@ import LevelCounter from '../components/LevelCounter.jsx'
 import Intructions from '../components/Instructions.jsx'
 import CodeEditor from '../components/CodeEditor.jsx'
 import DemoArea from '../components/DemoArea.jsx'
+import Guardian from '../components/Guardian.jsx'
 
 class GameScreen extends Component {
   constructor (props) {
@@ -287,6 +288,7 @@ class GameScreen extends Component {
     const currentLevel = parseInt(this.props.level, 10)
     const { instructions, before, after, showTooltip, plantTreatmentClass, textareaHeight, isVisibleCodeEditor } = this.state
 
+
     return (
       <div className='container full-width'>
         <section id='sidebar'>
@@ -305,11 +307,15 @@ class GameScreen extends Component {
             /> }
             {!isVisibleCodeEditor &&
             <button id='back-to-the-game' onClick={() => this.loadLevel(levels[levelsNo-1])}>Back to the game</button>}
-            <h1>Grid Garden</h1>
-            <Intructions
-              instructions={instructions}
-              docs={docs}
-            />
+            <h1 className='title'>THE ERIDANI WARS</h1>
+            <div className='flex instructions-container'>
+              <Guardian />
+              <Intructions
+                instructions={instructions}
+                docs={docs}
+              />
+             
+            </div>
           </div>
           {isVisibleCodeEditor &&
           <CodeEditor

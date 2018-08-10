@@ -1,11 +1,11 @@
 export const levels = [
   {
     name: 'grid-column-start 1',
-    instructions: '<p>Welcome to Grid Garden, where you write CSS code to grow your carrot garden! Water only the areas that have carrots by using the <code class="help">grid-column-start</code> property.</p><p>For example, <code>grid-column-start: 3;</code> will water the area starting at the 3rd vertical grid line, which is another way of saying the 3rd vertical border from the left in the grid.<img src="http://code.org/api/hour/begin_codepip_grid.png"></p>',
+    instructions: '<p>Welcome to the <strong>Eridani Wars</strong> world! Together we will learn CSS grid in order to defend your people! Put the halo only over the places they are by using the <code class="help">grid-column-start</code> property.</p><p>For example, <code>grid-column-start: 2;</code> will protect the area starting at the 2nd vertical grid line. Let`s try! <img src="http://code.org/api/hour/begin_codepip_grid.png"></p>',
     board: 'c',
     selector: '> :nth-child(1)',
-    style: {'grid-column-start': '3'},
-    before: '#garden {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#water {\n',
+    style: {'grid-column-start': '2'},
+    before: '#air {\n  display: grid;\n  grid-template-columns: 20% 20% 20% 20% 20%;\n  grid-template-rows: 20% 20% 20% 20% 20%;\n}\n\n#halo {\n',
     after: '}'
   },
   {
