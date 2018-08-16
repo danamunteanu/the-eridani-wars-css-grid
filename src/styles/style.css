@@ -20,7 +20,7 @@ a[href="#fa"] {
   min-width: 600px;
   min-height: 100%;
   margin: 0;
-  background-image: url("../images/eridani_wars_back_2.png");
+  background-image: url("../images/eridani_wars_back.png");
   color: rgba(255, 255, 255, 0.8);
   font-family: 'PT Sans', sans-serif; }
 
@@ -130,7 +130,7 @@ pre {
   position: relative;
   padding: 15px 10px 10px 20px;
   background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid #ff0000;
+  border: 1px solid #A83025;
   border-radius: 5px;
   overflow: hidden; }
 
@@ -456,12 +456,12 @@ button:not(.disabled):hover {
 
 .treatment.carrot .bg {
   background-color: #518cb3;
-  background-image: url("../images/water.svg");
-  animation: scroll 6s linear infinite; }
+  background-image: url("../images/halo-plati.svg");
+  animation: scroll 10s linear infinite; }
 
 .treatment.weed .bg {
   background-color: #63393E;
-  background-image: url("../images/poison.svg");
+  background-image: url("../images/halo-humans.svg");
   animation: scroll 6s linear infinite; }
 
 #overlay.win:before {

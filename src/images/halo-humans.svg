@@ -1,0 +1,26 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+ <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+
+ <title>poison</title>
+ <desc>Created with Sketch.</desc>
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="202" height="202" id="canvas_background" fill="#A83025"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="Page-2" fill="none" fill-rule="evenodd" opacity="0.15">
+   <g id="poison" fill="#FFFFFF">
+    <circle stroke="null" id="Oval" cx="44.000001" cy="97.500001" r="24.5"/>
+    <circle id="Oval" cx="162" cy="172.5" r="16.5" stroke="null"/>
+    <circle id="Oval" cx="77" cy="32" r="12"/>
+    <circle id="Oval" cx="110.5" cy="71.5" r="8.5"/>
+    <circle id="Oval" cx="151.5" cy="20.5" r="8.5"/>
+    <circle id="Oval" cx="49.5" cy="175.5" r="8.5"/>
+    <circle id="svg_1" cx="172.5" cy="101.5" r="8.5"/>
+    <circle id="svg_2" cx="112.5" cy="136.5" r="8.5"/>
+    <circle id="svg_3" cx="30.5" cy="43.5" r="8.5"/>
+   </g>
+  </g>
+ </g>
+</svg>

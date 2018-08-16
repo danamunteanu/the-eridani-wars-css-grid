@@ -23,7 +23,7 @@ a[href="#fa"] {
   min-width: 600px;
   min-height: 100%;
   margin: 0;
-  background-image: url("../images/eridani_wars_back_2.png");
+  background-image: url("../images/eridani_wars_back.png");
   color: rgba(255, 255, 255, 0.8);
   font-family: 'PT Sans', sans-serif;
 }
@@ -155,7 +155,7 @@ pre {
   padding: 15px 10px 10px 20px;
   //background-color: #1F182D;
   background-color: rgba(0,0,0,0.5);
-  border: 1px solid #ff0000;
+  border: 1px solid #A83025;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -469,31 +469,31 @@ background-color: #ACBBCC;
   width: 100%;
   height: 100%;
   &:nth-child(7n) {
-   // background-image: url('../images/demo_area_air_back_2.png');
+    // background-image: url('../images/demo_area_air_back_2.png');
     background-image: url('../images/demo_area_soil_back_2.png');
   }
   &:nth-child(7n+1) {
-   // background-image: url('../images/demo_area_air_back_7.png');
+  //  background-image: url('../images/demo_area_air_back_7.png');
     background-image: url('../images/demo_area_soil_back_7.png');
   }
   &:nth-child(7n+2) {
-   // background-image: url('../images/demo_area_air_back_6.png');
+  //  background-image: url('../images/demo_area_air_back_6.png');
     background-image: url('../images/demo_area_soil_back_6.png');
   }
   &:nth-child(7n+3) {
-   // background-image: url('../images/demo_area_air_back_4.png');
+  //  background-image: url('../images/demo_area_air_back_4.png');
     background-image: url('../images/demo_area_soil_back_4.png');
   }
   &:nth-child(7n+4) {
-   // background-image: url('../images/demo_area_air_back_3.png');
+  //  background-image: url('../images/demo_area_air_back_3.png');
     background-image: url('../images/demo_area_soil_back_3.png');
   }
   &:nth-child(7n+5) {
-   // background-image: url('../images/demo_area_air_back_1.png');
+  //  background-image: url('../images/demo_area_air_back_1.png');
     background-image: url('../images/demo_area_soil_back_1.png');
   }
   &:nth-child(7n+6) {
-   // background-image: url('../images/demo_area_air_back_5.png');
+  //  background-image: url('../images/demo_area_air_back_5.png');
     background-image: url('../images/demo_area_soil_back_5.png');
   }
   
@@ -557,13 +557,13 @@ background-color: #ACBBCC;
 
 .treatment.carrot .bg {
   background-color: rgba(81, 140, 179, 1);
-  background-image: url('../images/water.svg');
-  animation: scroll 6s linear infinite;
+  background-image: url('../images/halo-plati.svg');
+  animation: scroll 10s linear infinite;
 }
 
 .treatment.weed .bg {
   background-color: #63393E;
-  background-image: url('../images/poison.svg');
+  background-image: url('../images/halo-humans.svg');
   animation: scroll 6s linear infinite;
 }
 
