@@ -308,7 +308,7 @@ class GameScreen extends Component {
             {!isVisibleCodeEditor &&
             <button id='back-to-the-game' onClick={() => this.loadLevel(levels[levelsNo-1])}>Back to the game</button>}
             <h1 className='title'>THE ERIDANI WARS</h1>
-            <div className='flex instructions-container'>
+            <div className='flex image-instructions-container'>
               <Guardian />
               <Intructions
                 instructions={instructions}

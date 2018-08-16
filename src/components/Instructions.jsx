@@ -67,8 +67,8 @@ class Instructions extends Component {
     const { instructions } = this.props
     const { tooltipClassName, tooltipStyle, tooltipContent } = this.state
     return (
-      <div>
-        <p id='instructions' dangerouslySetInnerHTML={{__html: instructions}} ref={this.setInstructionsTextRef}></p>
+      <div className="instructions-container">
+        <div id='instructions' dangerouslySetInnerHTML={{__html: instructions}} ref={this.setInstructionsTextRef}></div>
         <div id='tooltip' className={tooltipClassName} style={tooltipStyle} dangerouslySetInnerHTML={{__html:tooltipContent}} ref={this.setTooltipRef}></div>
       </div>
     )

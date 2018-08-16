@@ -20,7 +20,7 @@ a[href="#fa"] {
   min-width: 600px;
   min-height: 100%;
   margin: 0;
-  background-image: url("../images/eridani_wars_back.jpg");
+  background-image: url("../images/eridani_wars_back_2.png");
   color: rgba(255, 255, 255, 0.8);
   font-family: 'PT Sans', sans-serif; }
 
@@ -29,7 +29,7 @@ a[href="#fa"] {
   min-width: 300px;
   position: relative;
   padding: 1em;
-  font-size: 15px; }
+  font-size: 14px; }
 
 #view {
   min-height: 100vh;
@@ -71,7 +71,7 @@ a:hover {
   padding: 0 1em 1em;
   background-color: #1F182D;
   border: 2px solid #556171;
-  border-radius: 12px;
+  border-radius: 5px;
   font-size: 12px;
   line-height: 1.5;
   z-index: 60; }
@@ -116,7 +116,7 @@ a:hover {
 
 #editor {
   position: relative;
-  margin-top: 10px; }
+  margin-top: 33px; }
 
 #editor,
 pre {
@@ -126,12 +126,12 @@ pre {
   color: rgba(255, 255, 255, 0.8); }
 
 #css {
-  height: 375px;
+  height: 400px;
   position: relative;
   padding: 15px 10px 10px 20px;
-  background-color: #1F182D;
-  border: 5px solid #556171;
-  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #ff0000;
+  border-radius: 5px;
   overflow: hidden; }
 
 .line-numbers {
@@ -162,7 +162,7 @@ pre {
   float: right;
   position: relative;
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(85, 97, 113, 0.4);
   border-radius: 4px;
   font-size: 15px;
   -webkit-user-select: none;
@@ -372,8 +372,8 @@ button:not(.disabled):hover {
   min-width: 300px;
   min-height: 300px;
   overflow: hidden;
-  border: 5px solid #556171;
-  border-radius: 12px; }
+  border: 1px solid #556171;
+  border-radius: 5px; }
 
 #garden,
 #plants,
@@ -400,19 +400,19 @@ button:not(.disabled):hover {
   height: 100%;
   background-size: calc(10vw - 4px); }
   .plot:nth-child(7n) {
-    background-image: url("../images/demo_area_air_back_2.png"); }
+    background-image: url("../images/demo_area_soil_back_2.png"); }
   .plot:nth-child(7n+1) {
-    background-image: url("../images/demo_area_air_back_7.png"); }
+    background-image: url("../images/demo_area_soil_back_7.png"); }
   .plot:nth-child(7n+2) {
-    background-image: url("../images/demo_area_air_back_6.png"); }
+    background-image: url("../images/demo_area_soil_back_6.png"); }
   .plot:nth-child(7n+3) {
-    background-image: url("../images/demo_area_air_back_4.png"); }
+    background-image: url("../images/demo_area_soil_back_4.png"); }
   .plot:nth-child(7n+4) {
-    background-image: url("../images/demo_area_air_back_3.png"); }
+    background-image: url("../images/demo_area_soil_back_3.png"); }
   .plot:nth-child(7n+5) {
-    background-image: url("../images/demo_area_air_back_1.png"); }
+    background-image: url("../images/demo_area_soil_back_1.png"); }
   .plot:nth-child(7n+6) {
-    background-image: url("../images/demo_area_air_back_5.png"); }
+    background-image: url("../images/demo_area_soil_back_5.png"); }
 
 #overlay .plot {
   z-index: 50;
@@ -441,10 +441,12 @@ button:not(.disabled):hover {
   border-width: 3px 5px 5px 3px; }
 
 .plant.carrot .bg {
-  background-image: url("../images/Human_fighter_air_noBack.png"); }
+  background-image: url("../images/Human_fighter_air_noBack.png");
+  background-image: url("../images/Human_fighter_ground_noBack.png"); }
 
 .plant.weed .bg {
-  background-image: url("../images/Plati_fighter_air_noBack.png"); }
+  background-image: url("../images/Plati_fighter_air_noBack.png");
+  background-image: url("../images/Plati_fighter_ground_noBack.png"); }
 
 .plant.carrot.correct .bg {
   background-image: url("../images/carrots-correct.svg"); }
@@ -556,11 +558,23 @@ button:not(.disabled):hover {
   position: relative; }
 
 .image {
+  width: 180px;
+  height: 100%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px; }
+
+.image-container {
+  height: 223px;
   margin-right: 20px; }
 
 .instructions-container {
-  border: 5px solid #556171;
-  border-radius: 12px; }
+  height: 214px;
+  padding-right: 10px; }
+
+.image-instructions-container {
+  border: 1px solid #286C72;
+  border-radius: 5px;
+  background-color: rgba(85, 97, 113, 0.3); }
 
 .title {
   margin: 5px 0 19px; }
