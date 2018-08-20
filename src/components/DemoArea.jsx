@@ -1,33 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { airLevels } from './../const/levels.js'
 
-const DemoArea = ({ plantTreatmentClass}) => {
+const DemoArea = ({ characterHaloClass, level }) => {
   const noOfRepeatsPlot = 30
-  const plantTreatmentClassNo = plantTreatmentClass.length
+  const characterHaloClassNo = characterHaloClass.length
   return (
     <div id='board'>
       <div id='overlay'>
         {Array.apply(null, { length: noOfRepeatsPlot }).map((elem, index) => (
-          <span className='plot' key={index}></span>
+          <span className={'plot plot--'  + (airLevels.includes(level) ? 'air' : 'soil')} key={index}></span>
         ))}
       </div>
-      <div id='plants'>
-        {Array.apply(null, { length: plantTreatmentClassNo }).map((elem, index) => (
-          <div className={'plant ' + plantTreatmentClass[index]} key={index}>
+      <div id='characters'>
+        {Array.apply(null, { length: characterHaloClassNo }).map((elem, index) => (
+          <div className={'character ' + characterHaloClass[index]} key={index}>
             <div className='bg'></div>
           </div>
         ))}
       </div>
-      <div id='garden'>
-        {Array.apply(null, { length: plantTreatmentClassNo }).map((elem, index) => (
-          <div className={'treatment '+ plantTreatmentClass[index]} key={index} >
+      <div id='halos'>
+        {Array.apply(null, { length: characterHaloClassNo }).map((elem, index) => (
+          <div className={'halo '+ characterHaloClass[index]} key={index} >
             <div className='bg'></div>
           </div>
         ))}
       </div>
       <div id='soil'>
         {Array.apply(null, { length: noOfRepeatsPlot }).map((elem, index) => (
-          <span className='plot' key={index}></span>
+          <span className={'plot plot--'  + (airLevels.includes(level) ? 'air' : 'soil')} key={index}></span>
         ))}
       </div>
     </div>
@@ -37,5 +38,6 @@ const DemoArea = ({ plantTreatmentClass}) => {
 export default DemoArea
 
 DemoArea.propTypes = {
-  plantTreatmentClass: PropTypes.array
+  level: PropTypes.number,
+  characterHaloClass: PropTypes.array
 }

@@ -442,8 +442,8 @@ button:not(.disabled):hover {
   border-radius: 5px;
 }
 
-#garden,
-#plants,
+#halos,
+#characters,
 #soil,
 #overlay {
   display: grid;
@@ -456,7 +456,7 @@ button:not(.disabled):hover {
   height: 100%;
 }
 
-#plants {
+#characters {
   z-index: 30;
 }
 
@@ -468,35 +468,52 @@ background-color: #ACBBCC;
 .plot {
   width: 100%;
   height: 100%;
-  &:nth-child(7n) {
-    // background-image: url('../images/demo_area_air_back_2.png');
-    background-image: url('../images/demo_area_soil_back_2.png');
+  &--air {
+    &:nth-child(7n) {
+      background-image: url('../images/demo_area_air_back_2.png');
+    }
+    &:nth-child(7n+1) {
+      background-image: url('../images/demo_area_air_back_7.png');
+    }
+    &:nth-child(7n+2) {
+      background-image: url('../images/demo_area_air_back_6.png');
+    }
+    &:nth-child(7n+3) {
+      background-image: url('../images/demo_area_air_back_4.png');
+    }
+    &:nth-child(7n+4) {
+      background-image: url('../images/demo_area_air_back_3.png');
+    }
+    &:nth-child(7n+5) {
+      background-image: url('../images/demo_area_air_back_1.png');
+    }
+    &:nth-child(7n+6) {
+      background-image: url('../images/demo_area_air_back_5.png');
+    }
   }
-  &:nth-child(7n+1) {
-  //  background-image: url('../images/demo_area_air_back_7.png');
-    background-image: url('../images/demo_area_soil_back_7.png');
+  &--soil {
+    &:nth-child(7n) {
+      background-image: url('../images/demo_area_soil_back_2.png');
+    }
+    &:nth-child(7n+1) {
+      background-image: url('../images/demo_area_soil_back_7.png');
+    }
+    &:nth-child(7n+2) {
+      background-image: url('../images/demo_area_soil_back_6.png');
+    }
+    &:nth-child(7n+3) {
+      background-image: url('../images/demo_area_soil_back_4.png');
+    }
+    &:nth-child(7n+4) {
+      background-image: url('../images/demo_area_soil_back_3.png');
+    }
+    &:nth-child(7n+5) {
+      background-image: url('../images/demo_area_soil_back_1.png');
+    }
+    &:nth-child(7n+6) {
+      background-image: url('../images/demo_area_soil_back_5.png');
+    }
   }
-  &:nth-child(7n+2) {
-  //  background-image: url('../images/demo_area_air_back_6.png');
-    background-image: url('../images/demo_area_soil_back_6.png');
-  }
-  &:nth-child(7n+3) {
-  //  background-image: url('../images/demo_area_air_back_4.png');
-    background-image: url('../images/demo_area_soil_back_4.png');
-  }
-  &:nth-child(7n+4) {
-  //  background-image: url('../images/demo_area_air_back_3.png');
-    background-image: url('../images/demo_area_soil_back_3.png');
-  }
-  &:nth-child(7n+5) {
-  //  background-image: url('../images/demo_area_air_back_1.png');
-    background-image: url('../images/demo_area_soil_back_1.png');
-  }
-  &:nth-child(7n+6) {
-  //  background-image: url('../images/demo_area_air_back_5.png');
-    background-image: url('../images/demo_area_soil_back_5.png');
-  }
-  
   background-size: calc(10vw - 4px);
 }
 
@@ -506,62 +523,64 @@ background-color: #ACBBCC;
   box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.05), inset -2px -2px 0 #536173;
 }
 
-#garden {
+#halos {
   z-index: 20;
 }
 
-.plant,
-.treatment {
+.character,
+.halo {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.plant .bg,
-.treatment .bg {
+.character .bg,
+.halo .bg {
   width: 100%;
   height: 100%;
   background-position: left top;
   background-size: calc(10vw - 4px);
 }
 
-.treatment .bg {
+.halo .bg {
   border: 5px solid rgba(255, 255, 255, 0.4);
   border-width: 3px 5px 5px 3px;
 }
 
-.plant.carrot .bg {
-  //air
-  background-image: url('../images/Human_fighter_air_noBack.png');
-  //ground
-  background-image: url('../images/Human_fighter_ground_noBack.png');
-  
+.character.plati {
+  &__air .bg {
+    background-image: url('../images/Plati_fighter_air_noBack.png');
+  }
+  &__soil .bg {
+    background-image: url('../images/Plati_fighter_soil_noBack.png');
+  }
 }
 
-.plant.weed .bg {
-  //air
-  background-image: url('../images/Plati_fighter_air_noBack.png');
-  //ground
-  background-image: url('../images/Plati_fighter_ground_noBack.png');
-
+.character.human {
+  &__air .bg {
+    background-image: url('../images/Human_fighter_air_noBack.png');
+  }
+  &__soil .bg {
+    background-image: url('../images/Human_fighter_soil_noBack.png');
+  }
 }
 
-.plant.carrot.correct .bg {
-  background-image: url('../images/carrots-correct.svg');
+.character.plati.correct .bg {
+  //background-image: url('../images/carrots-correct.svg');
 }
 
-.plant.weed.correct .bg {
-  background-image: url('../images/weeds-correct.svg');
+.character.human.correct .bg {
+  //background-image: url('../images/weeds-correct.svg');
 }
 
-.treatment.carrot .bg {
+.halo.plati__air .bg, .halo.plati__soil .bg {
   background-color: rgba(81, 140, 179, 1);
   background-image: url('../images/halo-plati.svg');
   animation: scroll 10s linear infinite;
 }
 
-.treatment.weed .bg {
+.halo.human__air .bg, .halo.human__soil .bg {
   background-color: #63393E;
   background-image: url('../images/halo-humans.svg');
   animation: scroll 6s linear infinite;
@@ -597,7 +616,7 @@ background-color: #ACBBCC;
   z-index: 100;
 }
 
-#garden.win {
+#halos.win {
   display: none;
 }
 

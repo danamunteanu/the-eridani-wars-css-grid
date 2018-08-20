@@ -1,0 +1,23 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+ <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+
+ <title>water</title>
+ <desc>Created with Sketch.</desc>
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="202" height="202" id="canvas_background" fill="#477D87"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="Page-2" fill="none" fill-rule="evenodd" stroke-linecap="square" opacity="0.15" stroke="null">
+   <g id="water" stroke-width="20" stroke="#E8F1F6">
+    <path d="m85.711547,-3c0,0 108.288477,34.34 108.288477,66.66c0,32.32 -174.108176,34.688218 -175.968775,71.71c-1.860599,37.021783 67.680298,63.63 67.680298,63.63" id="Line" stroke="null"/>
+   </g>
+  </g>
+  <g id="svg_4" fill="none" fill-rule="evenodd" stroke-linecap="square" opacity="0.15" transform="rotate(-15 100.11924743652351,100.00062561035159) " stroke="null">
+   <g id="svg_3" stroke-width="20" stroke="#E8F1F6">
+    <path d="m87.253636,-11.220967c0,0 68.678607,37.815342 68.678607,73.406252c0,35.590912 -110.422709,38.198802 -111.602736,78.967334c-1.180028,40.768532 42.924129,70.069605 42.924129,70.069605" id="svg_2" stroke="null"/>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -11,6 +11,7 @@ import Intructions from '../components/Instructions.jsx'
 import CodeEditor from '../components/CodeEditor.jsx'
 import DemoArea from '../components/DemoArea.jsx'
 import Guardian from '../components/Guardian.jsx'
+import { airLevels } from './../const/levels.js'
 
 class GameScreen extends Component {
   constructor (props) {
@@ -22,7 +23,7 @@ class GameScreen extends Component {
     this.reset = this.reset.bind(this)
     this.saveAnswer = this.saveAnswer.bind(this)
     this.goToLevel = this.goToLevel.bind(this)
-    this.applyTreatmentStyle = this.applyTreatmentStyle.bind(this)
+    this.applyHaloStyle = this.applyHaloStyle.bind(this)
     this.isKeyValuePair = this.isKeyValuePair.bind(this)
     this.nextLevel = this.nextLevel.bind(this)
     this.onHandleChangeCodeArea = this.onHandleChangeCodeArea.bind(this)
@@ -35,7 +36,7 @@ class GameScreen extends Component {
       showTooltip: false,
       codeArea: '',
       textareaHeight: '22px',
-      plantTreatmentClass: [],
+      characterHaloClass: [],
       isVisibleCodeEditor: true
     }
   }
@@ -48,7 +49,7 @@ class GameScreen extends Component {
     }
     const levelData = this.props.levels[currentLevel]
     this.saveAnswer()
-    this.loadLevel(levelData)
+    this.loadLevel(levelData,currentLevel)
   }
 
   prev () {
@@ -57,7 +58,7 @@ class GameScreen extends Component {
     currentLevel --
     this.props.setLevel(currentLevel)
     const levelData = this.props.levels[currentLevel]
-    this.loadLevel(levelData)
+    this.loadLevel(levelData,currentLevel)
   }
 
   next () {
@@ -66,7 +67,7 @@ class GameScreen extends Component {
     currentLevel ++
     this.props.setLevel(currentLevel)
     const levelData = this.props.levels[currentLevel]
-    this.loadLevel(levelData)
+    this.loadLevel(levelData,currentLevel)
   }
 
   goToLevel (level) {
@@ -74,16 +75,16 @@ class GameScreen extends Component {
     const currentLevel = level
     this.props.setLevel(currentLevel)
     const levelData = this.props.levels[currentLevel]
-    this.loadLevel(levelData)
+    this.loadLevel(levelData,currentLevel)
   }
 
-  loadLevel (levelData) {
+  loadLevel (levelData, currentLevel) {
     const { instructions, before, after, board } = levelData
     const { answers } = this.props
     const levelName = levelData.name
     const colors = {
-      'c': 'carrot',
-      'w': 'weed'
+      'c': 'plati',
+      'w': 'human'
     }
     const levelStyle = levelData.style
     const height = Object.keys(levelStyle).length * 20 + 2 + 'px'
@@ -105,24 +106,30 @@ class GameScreen extends Component {
       })
     }
 
-    let plantTreatmentClassArr = []
+    let characterHaloClassArr = []
     let color = ''
     for (let i = 0; i < board.length; i++) {
       color = colors[board.charAt(i)]
-      plantTreatmentClassArr = [...plantTreatmentClassArr, color]
+      if (airLevels.includes(currentLevel)) {
+        color = color + '__air';
+      }
+      else {
+        color =  color + '__soil';
+      }
+      characterHaloClassArr = [...characterHaloClassArr, color]
     }
 
     this.setState({
-      plantTreatmentClass : plantTreatmentClassArr
+      characterHaloClass : characterHaloClassArr
     }, () => {
       this.applyInitialClassesAndStyles(levelData)
-      this.applyTreatmentStyle(currentAnswer)
+      this.applyHaloStyle(currentAnswer)
     })
   }
 
   applyInitialClassesAndStyles (levelData) {
     const initialClasses = levelData.classes
-    const initialAndResetClasses = initialClasses ? {'#overlay, #garden, #plants': '', ...initialClasses} : {'#overlay, #plants, #garden, #garden > *, #plants > *': ''}
+    const initialAndResetClasses = initialClasses ? {'#overlay, #halos, #characters': '', ...initialClasses} : {'#overlay, #characters, #halos, #halos > *, #characters > *': ''}
     let defaultClassNames
     Object.keys(initialAndResetClasses).forEach(function (initialOrResetClass) {
       const initialOrResetClassSelectors = initialOrResetClass.split(', ')
@@ -130,7 +137,7 @@ class GameScreen extends Component {
         const elementsByClassMatches = document.querySelectorAll(initialOrResetClassSelector)
         elementsByClassMatches.forEach(match => {
           const matchClassNames = match.className.split(' ')
-          if (initialOrResetClassSelector === '#plants' ||initialOrResetClassSelector === '#overlay' || initialOrResetClassSelector === '#garden') {
+          if (initialOrResetClassSelector === '#characters' ||initialOrResetClassSelector === '#overlay' || initialOrResetClassSelector === '#halos') {
             defaultClassNames = []
           }
           else {
@@ -145,12 +152,12 @@ class GameScreen extends Component {
     const initialSelector = levelData.selector
     const initialStyle = levelData.style
     if (initialStyle) {
-      const initialElementsBySelectorsForStyle = document.querySelectorAll('#plants, #plants > *')
+      const initialElementsBySelectorsForStyle = document.querySelectorAll('#characters, #characters > *')
       initialElementsBySelectorsForStyle.forEach(element => {
         element.style.cssText = ''
       })
 
-      const elementsBySelectorsForStyleMatches = document.querySelectorAll('#plants ' + (initialSelector || ''))
+      const elementsBySelectorsForStyleMatches = document.querySelectorAll('#characters ' + (initialSelector || ''))
       elementsBySelectorsForStyleMatches.forEach(match => {
         Object.keys(initialStyle).forEach(function (key) {
           match.style.cssText += key + ': ' + initialStyle[key] + '; '
@@ -179,19 +186,19 @@ class GameScreen extends Component {
 
   win () {
     this.saveAnswer()
-    this.loadLevel(this.props.levelWin)
+    this.loadLevel(this.props.levelWin, this.props.level)
   }
 
   nextLevel () {
     const currentLevel = this.props.level
-    const plantDOMs = ReactDOM.findDOMNode(this).getElementsByClassName('plant')
-    const treatmentDOMs = ReactDOM.findDOMNode(this).getElementsByClassName('treatment')
-    for (let i=0; i<plantDOMs.length;i++) {
-      const plantDOM = plantDOMs[i]
-      const treatmentDOM = treatmentDOMs[i]
-      const plantPosition = plantDOM.getBoundingClientRect()
-      const treatmentPosition = treatmentDOM.getBoundingClientRect()
-      if (!(Math.round(plantPosition.top) === Math.round(treatmentPosition.top) && Math.round(plantPosition.left) === Math.round(treatmentPosition.left) && Math.round(plantPosition.bottom) === Math.round(treatmentPosition.bottom) && Math.round(plantPosition.right) === Math.round(treatmentPosition.right))) {
+    const characterDOMs = ReactDOM.findDOMNode(this).getElementsByClassName('character')
+    const haloDOMs = ReactDOM.findDOMNode(this).getElementsByClassName('halo')
+    for (let i=0; i<characterDOMs.length;i++) {
+      const characterDOM = characterDOMs[i]
+      const haloDOM = haloDOMs[i]
+      const characterPosition = characterDOM.getBoundingClientRect()
+      const haloPosition = haloDOM.getBoundingClientRect()
+      if (!(Math.round(characterPosition.top) === Math.round(haloPosition.top) && Math.round(characterPosition.left) === Math.round(haloPosition.left) && Math.round(characterPosition.bottom) === Math.round(haloPosition.bottom) && Math.round(characterPosition.right) === Math.round(haloPosition.right))) {
         alert(wrongAnswerWarning)
         return
       }
@@ -250,7 +257,7 @@ class GameScreen extends Component {
     return false
   }
 
-  applyTreatmentStyle (value) {
+  applyHaloStyle (value) {
     const valueSplittedByRows = value.split('\n')
     let style = ''
     for (let i=0; i<valueSplittedByRows.length;i++) {
@@ -263,14 +270,14 @@ class GameScreen extends Component {
     const currentLevel = this.props.level
     const levelData = this.props.levels[currentLevel]
     const initialSelector = levelData.selector
-    const initialElementsBySelectorsForTreatmentStyle = document.querySelectorAll('#garden, #garden > *')
-    initialElementsBySelectorsForTreatmentStyle.forEach(element => {
+    const initialElementsBySelectorsForHaloStyle = document.querySelectorAll('#halos, #halos > *')
+    initialElementsBySelectorsForHaloStyle.forEach(element => {
       element.style.cssText = ''
     })
 
     if (style) {
-      const elementsBySelectorsForTreatmentStyleMatches = document.querySelectorAll('#garden ' + (initialSelector || ''))
-      elementsBySelectorsForTreatmentStyleMatches.forEach(match => {
+      const elementsBySelectorsForHaloStyleMatches = document.querySelectorAll('#halos ' + (initialSelector || ''))
+      elementsBySelectorsForHaloStyleMatches.forEach(match => {
         match.style.cssText += style
       })
     }
@@ -286,7 +293,7 @@ class GameScreen extends Component {
     const { levels, solved, docs } = this.props
     const levelsNo = levels.length
     const currentLevel = parseInt(this.props.level, 10)
-    const { instructions, before, after, showTooltip, plantTreatmentClass, textareaHeight, isVisibleCodeEditor } = this.state
+    const { instructions, before, after, showTooltip, characterHaloClass, textareaHeight, isVisibleCodeEditor } = this.state
 
 
     return (
@@ -306,10 +313,10 @@ class GameScreen extends Component {
               solved={solved}
             /> }
             {!isVisibleCodeEditor &&
-            <button id='back-to-the-game' onClick={() => this.loadLevel(levels[levelsNo-1])}>Back to the game</button>}
+            <button id='back-to-the-game' onClick={() => this.loadLevel(levels[levelsNo-1],levelsNo-1)}>Back to the game</button>}
             <h1 className='title'>THE ERIDANI WARS</h1>
             <div className='flex image-instructions-container'>
-              <Guardian />
+              <Guardian level={currentLevel}/>
               <Intructions
                 instructions={instructions}
                 docs={docs}
@@ -322,7 +329,7 @@ class GameScreen extends Component {
             before={before}
             after={after}
             codeValue={this.state.codeArea}
-            applyTreatmentStyle={this.applyTreatmentStyle}
+            applyHaloStyle={this.applyHaloStyle}
             nextLevel={this.nextLevel}
             onHandleChangeCodeArea={this.onHandleChangeCodeArea}
             textareaHeight={textareaHeight}
@@ -330,7 +337,8 @@ class GameScreen extends Component {
         </section>
         <section id='view'>
           <DemoArea
-            plantTreatmentClass={plantTreatmentClass}
+            characterHaloClass={characterHaloClass}
+            level={currentLevel}
           />
         </section>
       </div>
