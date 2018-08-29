@@ -298,7 +298,7 @@ class GameScreen extends Component {
 
     return (
       <div className='container full-width'>
-        <section id='sidebar'>
+        <section id='sidebar' className={!isVisibleCodeEditor && 'full-width-imp'}>
           <div className='level-intructions-container'>
             {isVisibleCodeEditor &&
             <LevelCounter
@@ -316,7 +316,8 @@ class GameScreen extends Component {
             <button id='back-to-the-game' onClick={() => this.loadLevel(levels[levelsNo-1],levelsNo-1)}>Back to the game</button>}
             <h1 className='title'>THE ERIDANI WARS</h1>
             <div className='flex image-instructions-container'>
-              <Guardian level={currentLevel}/>
+
+                {isVisibleCodeEditor && <Guardian level={currentLevel}/>}
               <Intructions
                 instructions={instructions}
                 docs={docs}
@@ -336,10 +337,11 @@ class GameScreen extends Component {
           />}
         </section>
         <section id='view'>
+            {isVisibleCodeEditor &&
           <DemoArea
             characterHaloClass={characterHaloClass}
             level={currentLevel}
-          />
+          />}
         </section>
       </div>
     )

@@ -590,3 +590,6 @@ button:not(.disabled):hover {
 
 .title {
   margin: 5px 0 19px; }
+
+.full-width-imp {
+  width: 100% !important; }
