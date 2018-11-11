@@ -20,10 +20,12 @@ const reducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, reducer)
 
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
+
 const store = createStore(
   persistedReducer,
   compose(applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  devTools)
 )
 const persistedStore = persistStore(store)
 
